@@ -14,11 +14,11 @@ Requirements
 TODO:
 -------------------------
 
-[ ] Settings
-[ ] Grab from exchange
-[ ] Grab from RSS
-[ ] Create image
-[ ] Save image
-[ ] Examples
-[X] Puppet module
-[ ] Create how to use without puppet master
+- Settings
+- Grab from exchange
+- Grab from RSS
+- Create image
+- Save image
+- Examples
+- ~~Puppet module~~
+- Create how to use without puppet master
