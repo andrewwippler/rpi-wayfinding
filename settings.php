@@ -6,7 +6,7 @@
 
 require("rooms.php")
 
-//Start time to black screens (to save life)
+//Start time to blank screens 
 $start_time = "23:01";//11:01 pm
 
 //End of blanking time
@@ -14,3 +14,5 @@ $end_time = "5:59";
 
 //Exchange server
 $mailserver = "";
+
+
