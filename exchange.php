@@ -49,12 +49,20 @@ if ($response->ResponseMessages->FindItemResponseMessage->RootFolder->TotalItems
         $start = $event->Start;
         $end = $event->End;
         $subject = $event->Subject;
-        $location = $event->Location;
-      
-    //TODO: insert into database
-    //strip FW: from subject lines.
+              
+    
+    //room resource delegation fix
+    $subject = str_replace("FW: ", "", $subject);
    
-        echo ' Start=' . $start. ' End=' . $end. 'Subject =' . $subject . 'Location =' . $location . '<br />';
+    //TODO: insert into database
+   
+    //assuming still connected to database
+    $query = "INSERT INTO {$r['name']} (EventName, Start, End) VALUES (?,?,?)";
+    $stmt = mysqli_prepare($link, $query);
+    mysqli_stmt_bind_param($stmt, "sss", $subject, $start, $end);
+    /* Execute the statement */
+    mysqli_stmt_execute($stmt);
+
     }
 }
 else {

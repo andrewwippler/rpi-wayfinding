@@ -15,4 +15,7 @@ $end_time = "5:59";
 //Exchange server
 $mailserver = "";
 
+$sql_server = '';
+$sql_username = '';
+$sql_password = '';
 
