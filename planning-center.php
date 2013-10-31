@@ -1,7 +1,12 @@
 <?php
 
+/* 
+ * This file is intended to retrieve vCalendar items
+ * 
+ */
+
 //PCO produces vCalendars and not RSS :/
-//Their image is misleading.
+
 
 function icsToArray($paramUrl) {
     $icsFile = file_get_contents($paramUrl);

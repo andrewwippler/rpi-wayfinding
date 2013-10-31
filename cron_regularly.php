@@ -1,4 +1,6 @@
 <?php
+require('settings.php');
+
 //blank between hours - adjust in settings.php
 if (date("G:i") <= $end_time && date("G:i") <= $start_time) {
 
@@ -13,5 +15,12 @@ imagejpeg($im, $file);
 imagedestroy($im);
 
 } else {
+
+//check DB and drop row if time has past.
+
+
+//make current event the room jpeg
+
+
 
 }

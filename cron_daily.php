@@ -18,6 +18,8 @@ include('exchange.php');
 
 } else if ($r['type'] == 2) {
 
+include('planning-center.php');
+
 } else {
 
 //you need to make your own code.

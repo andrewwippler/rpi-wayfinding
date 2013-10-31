@@ -9,7 +9,7 @@
 header('Content-Type: image/jpeg');
 
 //grab url information
-//should be hostname of RPi
+//should be hostname of RPi via puppet or any other URI
 $image = $_GET["i"] . ".jpg";
 
 //find right image in directory

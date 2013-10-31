@@ -1,5 +1,8 @@
 <?php
- 
+ /* 
+ * This file is intended to check an exchange calendar via ews
+ * 
+ */
 function __autoload($class_name)
 {
     // Start from the base path and determine the location from the class name,
