@@ -11,7 +11,7 @@ Requirements
  * feh (for RPi)
  * Puppet master (optional)
  * cURL with NTLM support (7.23.0+ recommended)
- * Exchange 2007 or 2010*
+ * Exchange 2010 or 2013
  
 TODO:
 -------------------------
