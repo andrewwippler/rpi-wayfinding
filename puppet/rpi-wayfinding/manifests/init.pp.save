@@ -1,0 +1,5 @@
+# run exec only if command in onlyif returns 0.
+exec { "mkdir_autostart":
+    command => "mkdir /home/pi/.config/autostart[ ! -d /tmp ]",
+    onlyif => "grep -c old_account /etc/passwd",
+}

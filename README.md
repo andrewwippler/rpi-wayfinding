@@ -10,6 +10,8 @@ Requirements
  * GD Library
  * feh (for RPi)
  * Puppet master (optional)
+ * cURL with NTLM support (7.23.0+ recommended)
+ * Exchange 2007 or 2010*
  
 TODO:
 -------------------------
