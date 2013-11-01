@@ -25,7 +25,7 @@ End DATETIME
 mysqli_query($con,$sql) or die("Error creating table: " . mysqli_error($con);
 
 
-//create image by connecting to respective item
+//create daily events
 if ($r['type'] == 1) {
 
 include('exchange.php');
@@ -42,4 +42,6 @@ include('planning-center.php');
 
 }
 mysqli_close($con);
+
+//todo: add optional mail to recipient when completed.
 

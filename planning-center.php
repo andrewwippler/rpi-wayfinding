@@ -1,34 +1,41 @@
 <?php
 
 /* 
- * This file is intended to retrieve vCalendar items
+ * This file is intended to retrieve Calendar items from Google Calendar
+ * Planning Center Online currently uses these.
  * 
+ * Until PCO creates an API, the best way to grab these is by adding to a Google account and using JSON to grab them.
  */
 
-//PCO produces vCalendars and not RSS :/
+//Few needed strings
+$today = date('Y-m-d');
+$uri = urlencode($r['url']);
+$min = $today . urlencode('T00:00:01');
+$max = $today . urlencode('T23:59:59');
 
+$url = "http://www.google.com/calendar/feeds/{$uri}/public/full?alt=json&orderby=starttime&singleevents=true&sortorder=ascending&start-min={$min}&start-max={$max}";
 
-function icsToArray($paramUrl) {
-    $icsFile = file_get_contents($paramUrl);
+//JSON request
+$json = file_get_contents($url);
+$obj = json_decode($json);
 
-    $icsData = explode("BEGIN:", $icsFile);
+//Parse JSON
+foreach ($obj->feed->entry as $o) {
 
-    foreach($icsData as $key => $value) {
-        $icsDatesMeta[$key] = explode("\n", $value);
-    }
+   $endtime = $o->{'gd$when'}[0]->endTime;
+   $starttime = $o->{'gd$when'}[0]->startTime;
+   $title = $o->title->{'$t'}; //produces "name: name" ... need to explode
+   $title = explode(":",$title);
+   $title = $title[0];
+   $endtime = date("Y-m-d H:i:s", strtotime($endtime));
+   $starttime = date("Y-m-d H:i:s", strtotime($starttime));
+    
+      //assuming still connected to database
+    $query = "INSERT INTO {$r['name']} (EventName, Start, End) VALUES (?,?,?)";
+    $stmt = mysqli_prepare($con, $query);
+    mysqli_stmt_bind_param($stmt, "sss", $title, $starttime, $endtime);
+    /* Execute the statement */
+    mysqli_stmt_execute($stmt);
+  //  echo "Start: {$starttime}, End: {$endtime}, Title: {$title}";
+  
 
-    foreach($icsDatesMeta as $key => $value) {
-        foreach($value as $subKey => $subValue) {
-            if ($subValue != "") {
-                if ($key != 0 && $subKey == 0) {
-                    $icsDates[$key]["BEGIN"] = $subValue;
-                } else {
-                    $subValueArr = explode(":", $subValue, 2);
-                    $icsDates[$key][$subValueArr[0]] = $subValueArr[1];
-                }
-            }
-        }
-    }
-
-    return $icsDates;
-}

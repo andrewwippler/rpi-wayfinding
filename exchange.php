@@ -44,19 +44,16 @@ $response = $ews->FindItem($request);
 if ($response->ResponseMessages->FindItemResponseMessage->RootFolder->TotalItemsInView > 0){
     $events = $response->ResponseMessages->FindItemResponseMessage->RootFolder->Items->CalendarItem;
     foreach ($events as $event){
-        $id = $event->ItemId->Id;
-        $change_key = $event->ItemId->ChangeKey;
         $start = $event->Start;
         $end = $event->End;
         $subject = $event->Subject;
               
-    
     //room resource delegation fix
     $subject = str_replace("FW: ", "", $subject);
    
     //assuming still connected to database
     $query = "INSERT INTO {$r['name']} (EventName, Start, End) VALUES (?,?,?)";
-    $stmt = mysqli_prepare($link, $query);
+    $stmt = mysqli_prepare($con, $query);
     mysqli_stmt_bind_param($stmt, "sss", $subject, $start, $end);
     /* Execute the statement */
     mysqli_stmt_execute($stmt);
