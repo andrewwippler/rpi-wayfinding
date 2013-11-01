@@ -54,8 +54,6 @@ if ($response->ResponseMessages->FindItemResponseMessage->RootFolder->TotalItems
     //room resource delegation fix
     $subject = str_replace("FW: ", "", $subject);
    
-    //TODO: insert into database
-   
     //assuming still connected to database
     $query = "INSERT INTO {$r['name']} (EventName, Start, End) VALUES (?,?,?)";
     $stmt = mysqli_prepare($link, $query);

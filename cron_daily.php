@@ -11,7 +11,6 @@ $con=mysqli_connect($sql_server,$sql_username,$sql_password,"rpi-wayfinding") or
 
 foreach($rooms as $r) {
 
-
 //create tables for the rooms
 $sql = "CREATE TABLE IF NOT EXISTS " . $r['name'];
 $sql .= " (
