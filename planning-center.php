@@ -5,6 +5,8 @@
  * Planning Center Online currently uses these.
  * 
  * Until PCO creates an API, the best way to grab these is by adding to a Google account and using JSON to grab them.
+ *
+ * Google has a limitation where the calendar feed updates once every 24 hours. :/
  */
 
 //Few needed strings
