@@ -10,7 +10,11 @@ header('Content-Type: image/jpeg');
 
 //grab url information
 //should be hostname of RPi via puppet or any other URI
+
+//rework: pull from room listing and associate better
 $image = $_GET["i"] . ".jpg";
+
+
 
 //find right image in directory
 if (file_exists($image)) {

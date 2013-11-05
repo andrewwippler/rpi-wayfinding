@@ -26,16 +26,13 @@ foreach ($obj->feed->entry as $o) {
 
    $endtime = $o->{'gd$when'}[0]->endTime;
    $starttime = $o->{'gd$when'}[0]->startTime;
-   $title = $o->title->{'$t'}; //produces "name: name" ... need to explode
-   $title = explode(":",$title);
-   $title = $title[0];
    $endtime = date("Y-m-d H:i:s", strtotime($endtime));
    $starttime = date("Y-m-d H:i:s", strtotime($starttime));
     
       //assuming still connected to database
-    $query = "INSERT INTO {$r['name']} (EventName, Start, End) VALUES (?,?,?)";
+    $query = "INSERT INTO events (EventName, Start, End, Room, Group) VALUES (?,?,?,?,?)";
     $stmt = mysqli_prepare($con, $query);
-    mysqli_stmt_bind_param($stmt, "sss", $title, $starttime, $endtime);
+    mysqli_stmt_bind_param($stmt, "sssss", $title, $starttime, $endtime, $r['name'], $r['group']);
     /* Execute the statement */
     mysqli_stmt_execute($stmt);
   //  echo "Start: {$starttime}, End: {$endtime}, Title: {$title}";

@@ -6,7 +6,7 @@
  * 
  * Until PCO creates an API, the best way to grab these is by adding to a Google account and using JSON to grab them.
  *
- * Google has a limitation where the calendar feed updates once every 24 hours. :/
+ * Google has a limitation where public calendar feeds update once every 24-90 hours. :/
  */
 
 //Few needed strings
@@ -33,9 +33,9 @@ foreach ($obj->feed->entry as $o) {
    $starttime = date("Y-m-d H:i:s", strtotime($starttime));
     
       //assuming still connected to database
-    $query = "INSERT INTO {$r['name']} (EventName, Start, End) VALUES (?,?,?)";
+    $query = "INSERT INTO events (EventName, Start, End, Room, Group) VALUES (?,?,?,?,?)";
     $stmt = mysqli_prepare($con, $query);
-    mysqli_stmt_bind_param($stmt, "sss", $title, $starttime, $endtime);
+    mysqli_stmt_bind_param($stmt, "sssss", $title, $starttime, $endtime, $r['name'], $r['group']);
     /* Execute the statement */
     mysqli_stmt_execute($stmt);
   //  echo "Start: {$starttime}, End: {$endtime}, Title: {$title}";

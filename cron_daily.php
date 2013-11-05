@@ -11,20 +11,6 @@ $con=mysqli_connect($sql_server,$sql_username,$sql_password,"rpi-wayfinding") or
 
 foreach($rooms as $r) {
 
-//create tables for the rooms
-$sql = "CREATE TABLE IF NOT EXISTS " . $r['name'];
-$sql .= " (
-PID INT NOT NULL AUTO_INCREMENT,
-PRIMARY KEY(PID),
-EventName TEXT,
-Start DATETIME,
-End DATETIME
-)";
-
-// Execute query
-mysqli_query($con,$sql) or die("Error creating table: " . mysqli_error($con);
-
-
 //create daily events
 if ($r['type'] == 1) {
 
@@ -33,6 +19,10 @@ include('exchange.php');
 } else if ($r['type'] == 2) {
 
 include('planning-center.php');
+
+} else if ($r['type'] == 3) {
+
+include('google-calendar.php');
 
 } else {
 

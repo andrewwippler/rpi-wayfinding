@@ -8,15 +8,24 @@ $con=mysqli_connect($sql_server,$sql_username,$sql_password) or die("Connect fai
 
 // Create database
 $sql="CREATE DATABASE IF NOT EXISTS rpi-wayfinding";
-if (mysqli_query($con,$sql))
-  {
-  echo "Database my_db created successfully";
-  }
-else
-  {
-  echo "Error creating database: " . mysqli_error($con);
-  }
-  
+mysqli_query($con,$sql) or die ("Error creating database: " . mysqli_error($con));
+
+//create tables for the rooms
+$sql2 = "CREATE TABLE IF NOT EXISTS events
+(
+PID INT NOT NULL AUTO_INCREMENT,
+PRIMARY KEY(PID),
+EventName TEXT,
+Start DATETIME,
+End DATETIME,
+Room TEXT,
+Group TEXT
+)";
+
+// Execute query
+mysqli_query($con,$sql2) or die("Error creating table: " . mysqli_error($con));
+
+
 
   
 ?> 

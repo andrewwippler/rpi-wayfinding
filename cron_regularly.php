@@ -20,11 +20,10 @@ imagedestroy($im);
 } else {
 
 //check DB
-$sql_check = "SELECT * FROM {$r['name']} LIMIT 3"; // limiting to 3 requests because we do not need any more.
+$sql_check = "SELECT * FROM events WHERE Room='". $r["name"] . "' LIMIT 3"; // limiting to 3 requests because we do not need any more.
 
 if ($result = mysqli_query($con, $sql_check)) {
-    //todo: use default image if no results.
-
+    
     $result_set = new array();
     $i = 0;
     $one_event = FALSE;
