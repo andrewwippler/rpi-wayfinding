@@ -1,14 +1,14 @@
 rpi-wayfinding
 ==============
 
-PHP application for wayfinding using a Raspberry Pi and an HDMI monitor.
+PHP application for wayfinding using a Raspberry Pi and an HDMI monitor. Currently supports pulling information from an exchange calendar and google calendar (via json).
 
 Requirements
 -------------------------
 
  * PHP 5.4+ - for webserver
  * PHP GD - for webserver
- * MySQL 5.5+ - for webserver
+ * MySQL 5.5+/MariaDB - for webserver
  * feh - for RPi
  * Puppet master (optional)
  * cURL with NTLM support (7.23.0+ recommended)
@@ -19,7 +19,7 @@ TODO:
 
 - Settings
 - ~~Grab from exchange~~
-- Grab from RSS
+- ~~Grab from google calendar~~
 - Create image
 - Save image
 - Examples
