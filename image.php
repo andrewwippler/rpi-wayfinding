@@ -51,7 +51,6 @@ if (file_exists($image)) {
 	fpassthru($fp);
 	exit;
 
-
 } else {
 
 	//return default image
@@ -64,5 +63,4 @@ if (file_exists($image)) {
 	// dump the picture and stop the script
 	fpassthru($fp);
 	exit;
-
 }
