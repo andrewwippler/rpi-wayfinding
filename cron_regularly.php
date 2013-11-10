@@ -33,12 +33,13 @@ if ($result = mysqli_query($con, $sql_check)) {
 
     while ($row = mysqli_fetch_row($result)) {
     //capture events into string
-    $result_set[$i] = array('name' => $row[0], 'start' => $row[1], 'end' => $row[2]);
+    $result_set[$i] = array('name' => $row[0], 'start' => $row[1], 'end' => $row[2], 'room' => $row[3]);
     $i++;
     }
     
     if (is_array($result_set[0])) { 
     $one_event = TRUE;
+    $mainevent = $result_set[0];
     }
     
     if (is_array($result_set[1])) { 
@@ -54,10 +55,10 @@ if ($result = mysqli_query($con, $sql_check)) {
     
     //todo create mysql drop
     
-    
+    //move main event to second if applicable
     if ($two_events == TRUE) {
         $mainevent = $result_set[1];
-    }
+    } 
     
     }
     
@@ -67,15 +68,28 @@ if ($result = mysqli_query($con, $sql_check)) {
     $checker = stripos($mainevent['name'],$special); //case-insensitive
     if ($checker !== false && !is_null($mainevent)) {
     
-    //todo: what to do when found special name
+    //create image
+    $input = "/images/special-names/" . $mainevent['name'] . ".jpg";
+	$output = "/images/" . $mainevent['room'] . ".jpg";
+	file_put_contents($output, file_get_contents($input));
     
     } else if (!is_null($mainevent)) {
     
     //create image and upcoming event
+    //$im = imagecreatetruecolor(1920, 1080);
+	//$file = "/images/" . $mainevent['name'] . ".jpg";
+	// Save the image 
+	//imagejpeg($im, $file);
+
+	// Free up memory
+	//imagedestroy($im);
     
     } else {
     
     //create default image
+    $input = "/images/blanks/default.jpg";
+	$output = "/images/" . $mainevent['room'] . ".jpg";
+	file_put_contents($output, file_get_contents($input));
     
     }
     
