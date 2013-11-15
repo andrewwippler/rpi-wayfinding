@@ -7,7 +7,7 @@ require('settings.php');
 $con=mysqli_connect($sql_server,$sql_username,$sql_password) or die("Connect failed: %s\n", mysqli_connect_error());
 
 // Create database
-$sql="CREATE DATABASE IF NOT EXISTS rpi-wayfinding";
+$sql="CREATE DATABASE IF NOT EXISTS rpiwayfinding";
 mysqli_query($con,$sql) or die ("Error creating database: " . mysqli_error($con));
 
 //create tables for the rooms
@@ -19,7 +19,7 @@ EventName TEXT,
 Start DATETIME,
 End DATETIME,
 Room TEXT,
-Group TEXT
+Grp TEXT
 )";
 
 // Execute query

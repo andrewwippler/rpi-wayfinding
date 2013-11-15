@@ -52,7 +52,7 @@ if ($response->ResponseMessages->FindItemResponseMessage->RootFolder->TotalItems
     $subject = str_replace("FW: ", "", $subject);
    
     //assuming still connected to database
-    $query = "INSERT INTO events (EventName, Start, End, Room, Group) VALUES (?,?,?,?,?)";
+    $query = "INSERT INTO events (EventName, Start, End, Room, Grp) VALUES (?,?,?,?,?)";
     $stmt = mysqli_prepare($con, $query);
     mysqli_stmt_bind_param($stmt, "sssss", $subject, $start, $end, $r['name'], $r['group']);
     /* Execute the statement */

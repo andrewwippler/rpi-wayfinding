@@ -33,7 +33,7 @@ foreach ($obj->feed->entry as $o) {
    $starttime = date("Y-m-d H:i:s", strtotime($starttime));
     
       //assuming still connected to database
-    $query = "INSERT INTO events (EventName, Start, End, Room, Group) VALUES (?,?,?,?,?)";
+    $query = "INSERT INTO events (EventName, Start, End, Room, Grp) VALUES (?,?,?,?,?)";
     $stmt = mysqli_prepare($con, $query);
     mysqli_stmt_bind_param($stmt, "sssss", $title, $starttime, $endtime, $r['name'], $r['group']);
     /* Execute the statement */
