@@ -6,7 +6,7 @@
 function __autoload($class_name)
 {
     // Start from the base path and determine the location from the class name,
-    $base_path = '/php-ews';
+    $base_path = 'php-ews';
     $include_file = $base_path . '/' . str_replace('_', '/', $class_name) . '.php';
  
     return (file_exists($include_file) ? require_once $include_file : false);
@@ -29,8 +29,8 @@ $request->CalendarView = new EWSType_CalendarViewType();
 
 $today = date('Y-m-d');
  
-$request->CalendarView->StartDate = $today . 'T00:00:01'; // an ISO8601 date e.g. 2012-06-12T15:18:34+03:00
-$request->CalendarView->EndDate = $today . 'T23:59:59' ;// an ISO8601 date later than the above
+$request->CalendarView->StartDate = $today . 'T00:00:01'.date('P'); // an ISO8601 date e.g. 2012-06-12T15:18:34+03:00
+$request->CalendarView->EndDate = $today . 'T23:59:59'.date('P');// an ISO8601 date later than the above
  
 // Only look in the "calendars folder"
 $request->ParentFolderIds = new EWSType_NonEmptyArrayOfBaseFolderIdsType();
@@ -44,8 +44,8 @@ $response = $ews->FindItem($request);
 if ($response->ResponseMessages->FindItemResponseMessage->RootFolder->TotalItemsInView > 0){
     $events = $response->ResponseMessages->FindItemResponseMessage->RootFolder->Items->CalendarItem;
     foreach ($events as $event){
-        $start = $event->Start;
-        $end = $event->End;
+        $start = date('Y-m-d H:i:s',strtotime($event->Start));
+        $end = date('Y-m-d H:i:s',strtotime($event->End));
         $subject = $event->Subject;
               
     //room resource delegation fix

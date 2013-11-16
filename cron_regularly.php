@@ -1,11 +1,11 @@
 <?php
 require('settings.php');
-$con=mysqli_connect($sql_server,$sql_username,$sql_password,"rpiwayfinding") or die("Connect failed: %s\n", mysqli_connect_error());
+$con=mysqli_connect($sql_server,$sql_username,$sql_password,"rpiwayfinding") or die("Connect failed: %s\n". mysqli_connect_error());
 
 foreach($rooms as $r) {
 
 //blank between hours - adjust in settings.php
-if (date("G:i") <= $end_time && date("G:i") <= $start_time) {
+if (date("G:i") <= $end_time && date("G:i") >= $start_time) {
 
 // Create a blank image
 $im = imagecreatetruecolor(1920, 1080);
@@ -24,8 +24,7 @@ $sql_check = "SELECT * FROM events WHERE Room='". $r["name"] . "' LIMIT 3"; // l
 
 if ($result = mysqli_query($con, $sql_check)) {
     
-    $result_set = new array();
-    $i = 0;
+    $result_set = array();
     $one_event = FALSE;
     $two_events = FALSE;
     $three_events = FALSE;
@@ -33,8 +32,8 @@ if ($result = mysqli_query($con, $sql_check)) {
 
     while ($row = mysqli_fetch_row($result)) {
     //capture events into string
-    $result_set[$i] = array('name' => $row[0], 'start' => $row[1], 'end' => $row[2], 'room' => $row[3]);
-    $i++;
+    $result_set[] = array('id' => $row[0], 'name' => $row[1], 'start' => $row[2], 'end' => $row[3], 'room' => $row[4]);
+    
     }
     
     if (is_array($result_set[0])) { 
@@ -53,7 +52,10 @@ if ($result = mysqli_query($con, $sql_check)) {
     //drop row if time has past
     if ($one_event == TRUE && strtotime($result_set[0]['end']) <= time()) {
     
-    //todo create mysql drop
+    //mysql drop
+    $stmt = mysqli_prepare($con, "DELETE FROM events WHERE PID=?");
+    mysqli_stmt_bind_param($stmt, "i", $result_set[0]['id']);
+    mysqli_stmt_execute($stmt);
     
     //move main event to second if applicable
     if ($two_events == TRUE) {
@@ -65,8 +67,17 @@ if ($result = mysqli_query($con, $sql_check)) {
     
     //check for special names
     include('special_names.php');
-    $checker = stripos($mainevent['name'],$special); //case-insensitive
-    if ($checker !== false && !is_null($mainevent)) {
+    $found = FALSE;
+    foreach ($special as $s) {
+    $checker = stripos(trim($mainevent['name']),$s); // trimming to remove extra spaces at the end (if any)
+    
+		if ($checker !== false) {
+			$found = TRUE;
+		}
+    
+    }
+     
+    if ($found == TRUE && !is_null($mainevent)) {
     
     //create image
     $input = "/images/special-names/" . $mainevent['name'] . ".jpg";

@@ -4,7 +4,7 @@
  *
  */
 
-require("rooms.php")
+require("rooms.php");
 
 //Start time to blank screens 
 $start_time = "23:01";//11:01 pm

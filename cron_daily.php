@@ -7,7 +7,7 @@
 
 require("settings.php");
 
-$con=mysqli_connect($sql_server,$sql_username,$sql_password,"rpiwayfinding") or die("Connect failed: %s\n", mysqli_connect_error());
+$con=mysqli_connect($sql_server,$sql_username,$sql_password,"rpiwayfinding") or die("Connect failed: %s\n". mysqli_connect_error());
 
 foreach($rooms as $r) {
 
