@@ -29,6 +29,7 @@ if ($result = mysqli_query($con, $sql_check)) {
     $two_events = FALSE;
     $three_events = FALSE;
     $mainevent = NULL;
+    $secevent = NULL;
 
     while ($row = mysqli_fetch_row($result)) {
     //capture events into string
@@ -43,6 +44,7 @@ if ($result = mysqli_query($con, $sql_check)) {
     
     if (is_array($result_set[1])) { 
     $two_events = TRUE;
+    $secevent = $result_set[1];
     }
     
     if (is_array($result_set[2])) { 
@@ -60,6 +62,13 @@ if ($result = mysqli_query($con, $sql_check)) {
     //move main event to second if applicable
     if ($two_events == TRUE) {
         $mainevent = $result_set[1];
+        
+        //cleanup for up next item
+        if ($three_events == TRUE) {
+			$secevent = $result_set[2]; 
+		} else {
+			$secevent = NULL;
+		}
     } 
     
     }
@@ -73,6 +82,7 @@ if ($result = mysqli_query($con, $sql_check)) {
     
 		if ($checker !== false) {
 			$found = TRUE;
+			break;
 		}
     
     }

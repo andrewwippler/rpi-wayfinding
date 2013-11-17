@@ -15,7 +15,10 @@ $end_time = "5:59";
 //Exchange server
 $mailserver = "";
 
+//sql server settings
 $sql_server = "";
 $sql_username = "";
 $sql_password = "";
 
+//passcode for force sync
+$passcode = "";
