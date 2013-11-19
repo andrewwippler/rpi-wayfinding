@@ -85,18 +85,17 @@ $white = imagecolorallocate($im, 255, 255, 255);
 	}
 
 	if ($two_events == TRUE) {
-
-	$str = wordwrap($secevent['name'], 84, "\n"); //84 characters is good
+	$str = substr($secevent['name'], 0, 84);//84 characters is good
 
 	// First we create our bounding box for the first text
-	$bbox = imagettfbbox(36, 0, $bottom_font, $str[0]);
+	$bbox = imagettfbbox(36, 0, $bottom_font, $str);
 
 	// This is our cordinates for X and Y
 	$x = $bbox[0] + (imagesx($im) / 2) - ($bbox[4] / 2);
 	$y = 1000 - 5; // bottom part, bump up  5px
 
 	// Write it
-	imagettftext($im, 36, 0, $x, $y, $black, $bottom_font, $str[0]);
+	imagettftext($im, 36, 0, $x, $y, $black, $bottom_font, $str);
 
 	// Create the next bounding box for the second text
 	$bbox = imagettfbbox(24, 0, $bottom_font, $secevent_time);

@@ -139,6 +139,7 @@ foreach($rooms as $r) {
 				//append items to list form
 				foreach($result_set as $gi) {
 					
+					$y = 200;
 					$im = imagecreatetruecolor($gix, $giy);
 					$black = imagecolorallocate($im, 0, 0, 0);
 					$white = imagecolorallocate($im, 255, 255, 255);
@@ -157,70 +158,26 @@ foreach($rooms as $r) {
 							imagefilledrectangle($im, 0, 0, $gix, $giy, $bgc);
 
 							/* Output an error message */
-							imagestring($im, 1, 5, 5, 'Error loading ' . $horizim, $tc);
+							imagestring($im, 1, 5, 5, 'Error loading ' . $vertimg, $tc);
 						} else {
 
-						$eventtext = wordwrap($gi['name'], 45, "\n");
+						$event_sub = substr($gi['name'], 0, 84);
+											
+						//room first
+						$x = 20;
+						$y = $y + 44; // from above. Marker is at bottom mof text.
 
+						// Write it
+						imagettftext($im, 24, 0, $x, $y, $black, $font, $gi['room']);
 
-						if (strlen($eventtext) > 45) {
-
-							$newtext = explode("\n", $eventtext);
-							
-							// First we create our bounding box for the first text
-							$bbox = imagettfbbox(72, 0, $font, $eventtext[0]);
-
-							// This is our cordinates for X and Y
-							$x = $bbox[0] + (imagesx($im) / 2) - ($bbox[4] / 2);
-							$y = 514 - 14; // middle of screen, bump up  14px
-
-							// Write it
-							imagettftext($im, 72, 0, $x, $y, $black, $font, $eventtext[0]);
-							
-							// First we create our bounding box for the second text
-							$bbox = imagettfbbox(72, 0, $font, $eventtext[1]);
-
-							// This is our cordinates for X and Y
-							$x = $bbox[0] + (imagesx($im) / 2) - ($bbox[4] / 2);
-							$y = $y + 96; // add font size + 24px
-
-							// Write it
-							imagettftext($im, 72, 0, $x, $y, $black, $font, $eventtext[1]);
-							
-							// Create the next bounding box for the second text
-							$bbox = imagettfbbox(48, 0, $font, $group_time);
-
-							// Set the cordinates so its next to the first text
-							$x = $bbox[0] + (imagesx($im) / 2) - ($bbox[4] / 2);
-							$y = $y + 82; //add font size + 10px for spacing
-
-							// Write it
-							imagettftext($im, 48, 0, $x, $y, $black, $font, $group_time);
-
-						} else {
-							
-							// First we create our bounding box for the first text
-							$bbox = imagettfbbox(72, 0, $font, $eventtext);
-
-							// This is our cordinates for X and Y
-							$x = $bbox[0] + (imagesx($im) / 2) - ($bbox[4] / 2);
-							$y = 550 - 10; // middle of screen, bump up  10px
-
-							// Write it
-							imagettftext($im, 72, 0, $x, $y, $black, $font, $eventtext);
-
-							// Create the next bounding box for the second text
-							$bbox = imagettfbbox(48, 0, $font, $group_time);
-
-							// Set the cordinates so its next to the first text
-							$x = $bbox[0] + (imagesx($im) / 2) - ($bbox[4] / 2);
-							$y = 550 + 82; //middle of screen + above text size + 10px for spacing
-
-							// Write it
-							imagettftext($im, 48, 0, $x, $y, $black, $font, $group_time);
-							
-						}
-
+						//Event subject
+						$x = $x + 70;				
+						imagettftext($im, 24, 0, $x, $y, $black, $font, $event_sub);		
+						
+						//time
+						$x = $x + 500;
+						imagettftext($im, 24, 0, $x, $y, $black, $font, $group_time);
+						
 						$file = __DIR__ . "/images/{$group}.jpg";
 
 						// Save the image 
