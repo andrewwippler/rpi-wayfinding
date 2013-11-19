@@ -11,6 +11,15 @@ function __autoload($class_name)
  
     return (file_exists($include_file) ? require_once $include_file : false);
 }
+
+$today = date('Y-m-d');
+
+if ($force == TRUE) {
+	$time = 'T'.date('H:i:sP');
+
+} else {
+	$time = 'T00:00:01'.date('P');
+}
  
 $ews = new ExchangeWebServices($mailserver, $r['logon_name'], $r['pass']);
  
@@ -27,9 +36,7 @@ $request->ItemShape->BaseShape = EWSType_DefaultShapeNamesType::DEFAULT_PROPERTI
 // Define the timeframe to load calendar items
 $request->CalendarView = new EWSType_CalendarViewType();
 
-$today = date('Y-m-d');
- 
-$request->CalendarView->StartDate = $today . 'T00:00:01'.date('P'); // an ISO8601 date e.g. 2012-06-12T15:18:34+03:00
+$request->CalendarView->StartDate = $today . $time; // an ISO8601 date e.g. 2012-06-12T15:18:34+03:00
 $request->CalendarView->EndDate = $today . 'T23:59:59'.date('P');// an ISO8601 date later than the above
  
 // Only look in the "calendars folder"
@@ -50,6 +57,7 @@ if ($response->ResponseMessages->FindItemResponseMessage->RootFolder->TotalItems
               
     //room resource delegation fix
     $subject = str_replace("FW: ", "", $subject);
+    $subject = trim($subject);
    
     //assuming still connected to database
     $query = "INSERT INTO events (EventName, Start, End, Room, Grp) VALUES (?,?,?,?,?)";

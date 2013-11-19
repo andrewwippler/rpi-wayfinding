@@ -11,8 +11,16 @@
 
 //Few needed strings
 $today = date('Y-m-d');
+
+if ($force == TRUE) {
+	$time = urlencode('T'.date('H:i:s'));
+
+} else {
+	$time = urlencode('T00:00:01');
+}
+
 $uri = urlencode($r['url']);
-$min = $today . urlencode('T00:00:01');
+$min = $today . $time;
 $max = $today . urlencode('T23:59:59');
 
 $url = "http://www.google.com/calendar/feeds/{$uri}/public/full?alt=json&orderby=starttime&singleevents=true&sortorder=ascending&start-min={$min}&start-max={$max}";
@@ -26,6 +34,9 @@ foreach ($obj->feed->entry as $o) {
 
    $endtime = $o->{'gd$when'}[0]->endTime;
    $starttime = $o->{'gd$when'}[0]->startTime;
+   $title = $o->title->{'$t'}; 
+   $title = trim('$title');
+ 
    $endtime = date("Y-m-d H:i:s", strtotime($endtime));
    $starttime = date("Y-m-d H:i:s", strtotime($starttime));
     
@@ -35,6 +46,5 @@ foreach ($obj->feed->entry as $o) {
     mysqli_stmt_bind_param($stmt, "sssss", $title, $starttime, $endtime, $r['name'], $r['group']);
     /* Execute the statement */
     mysqli_stmt_execute($stmt);
-  //  echo "Start: {$starttime}, End: {$endtime}, Title: {$title}";
-  
 
+}

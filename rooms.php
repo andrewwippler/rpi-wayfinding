@@ -10,6 +10,7 @@
 		'pass' => '', //for exchange room
 		'url' => '', //planning center/google calendar
 		'group' => '', //first floor, building-first-floor, etc.
+		'rpi' => array ('test-sign-1','test-sign-2',), //place your hostnames here
 		);
  */
 

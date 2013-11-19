@@ -23,11 +23,10 @@ TODO:
 - Settings
 - ~~Grab from exchange~~
 - ~~Grab from google calendar~~
-- Create image - 50%
-- Save image - 25%
+- ~~Create image~~
 - Examples
 - ~~Puppet module~~
 - Create how to use without puppet master
-- Complete cron_regularly
+- Complete cron_regularly - 80%
 - Create install
 - ~~Create force-sync~~

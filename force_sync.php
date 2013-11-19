@@ -7,38 +7,41 @@
 
 require("settings.php");
 if ($_GET["p"] == $passcode) {
+	
+	$force = TRUE;
 
-$con=mysqli_connect($sql_server,$sql_username,$sql_password,"rpiwayfinding") or die("Connect failed: %s\n". mysqli_connect_error());
+	$con=mysqli_connect($sql_server,$sql_username,$sql_password,"rpiwayfinding") or die("Connect failed: %s\n". mysqli_connect_error());
 
-//empty the table - empties everything and restarts PID to 0
-$stmt = mysqli_prepare($con, "TRUNCATE TABLE events");
-mysqli_stmt_execute($stmt);
+	//empty the table - empties everything and restarts PID to 0
+	$stmt = mysqli_prepare($con, "TRUNCATE TABLE events");
+	mysqli_stmt_execute($stmt);
 
-foreach($rooms as $r) {
+	foreach($rooms as $r) {
 
-//create daily events
-if ($r['type'] == 1) {
+		//create daily events
+		if ($r['type'] == 1) {
+	
+			include('exchange.php');
 
-include('exchange.php');
+		} else if ($r['type'] == 2) {
 
-} else if ($r['type'] == 2) {
+			include('planning-center.php');
 
-include('planning-center.php');
+		} else if ($r['type'] == 3) {
 
-} else if ($r['type'] == 3) {
+			include('google-calendar.php');
 
-include('google-calendar.php');
+		} else {
 
-} else {
+		//you need to make your own code.
 
-//you need to make your own code.
+		}
 
-}
+	}
+	
+	mysqli_close($con);
 
-}
-mysqli_close($con);
-
-//todo: add optional mail to recipient when completed.
+	//todo: add optional mail to recipient when completed.
 
 } else {
 	echo "Invalid passcode. Quitting...";
