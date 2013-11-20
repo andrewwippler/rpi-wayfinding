@@ -119,8 +119,11 @@ Exec=/home/pi/rpi-wayfinding.sh
 
 ##### Rotating the RPi for group/building screens
 
+1 = 90* clockwise
+3 = 270* clockwise (90* counter-clockwise)
+
 ```
-sed 's/display_rotate=0/display_rotate=1/' /boot/config.txt
+# echo display_rotate=1 >> /boot/config.txt
 ```
 
 ## Examples
