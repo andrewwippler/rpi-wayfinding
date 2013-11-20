@@ -2,6 +2,9 @@
 <?php
 //550 is mid of 1080
 //1000 is bottom part
+$mainevent_time = date("g:i a",strtotime($mainevent["start"])) . " - " . date("g:i a",strtotime($mainevent["end"]));
+$secevent_time = date("g:i a",strtotime($secevent["start"])) . " - " . date("g:i a",strtotime($secevent["end"]));
+
 $im = imagecreatetruecolor($ix, $iy);
 $black = imagecolorallocate($im, 0, 0, 0);
 $white = imagecolorallocate($im, 255, 255, 255);
@@ -31,24 +34,24 @@ $white = imagecolorallocate($im, 255, 255, 255);
 		$newtext = explode("\n", $eventtext);
 		
 		// First we create our bounding box for the first text
-		$bbox = imagettfbbox(72, 0, $font, $eventtext[0]);
+		$bbox = imagettfbbox(60, 0, $font, $eventtext[0]);
 
 		// This is our cordinates for X and Y
 		$x = $bbox[0] + (imagesx($im) / 2) - ($bbox[4] / 2);
 		$y = 514 - 14; // middle of screen, bump up  14px
 
 		// Write it
-		imagettftext($im, 72, 0, $x, $y, $black, $font, $eventtext[0]);
+		imagettftext($im, 60, 0, $x, $y, $black, $font, $eventtext[0]);
 		
 		// First we create our bounding box for the second text
-		$bbox = imagettfbbox(72, 0, $font, $eventtext[1]);
+		$bbox = imagettfbbox(60, 0, $font, $eventtext[1]);
 
 		// This is our cordinates for X and Y
 		$x = $bbox[0] + (imagesx($im) / 2) - ($bbox[4] / 2);
 		$y = $y + 96; // add font size + 24px
 
 		// Write it
-		imagettftext($im, 72, 0, $x, $y, $black, $font, $eventtext[1]);
+		imagettftext($im, 60, 0, $x, $y, $black, $font, $eventtext[1]);
 		
 		// Create the next bounding box for the second text
 		$bbox = imagettfbbox(48, 0, $font, $mainevent_time);
@@ -63,14 +66,14 @@ $white = imagecolorallocate($im, 255, 255, 255);
 	} else {
 		
 		// First we create our bounding box for the first text
-		$bbox = imagettfbbox(72, 0, $font, $eventtext);
+		$bbox = imagettfbbox(60, 0, $font, $eventtext);
 
 		// This is our cordinates for X and Y
 		$x = $bbox[0] + (imagesx($im) / 2) - ($bbox[4] / 2);
 		$y = 550 - 10; // middle of screen, bump up  10px
 
 		// Write it
-		imagettftext($im, 72, 0, $x, $y, $black, $font, $eventtext);
+		imagettftext($im, 60, 0, $x, $y, $black, $font, $eventtext);
 
 		// Create the next bounding box for the second text
 		$bbox = imagettfbbox(48, 0, $font, $mainevent_time);

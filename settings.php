@@ -35,11 +35,6 @@ $font = __DIR__ . "/font/aleo-bold.ttf";
 $bottom_font = __DIR__ . "/font/aleo-bold.ttf";
 $groupfont = __DIR__ . "/font/aleo-bold.ttf";
 
-//Time format
-$mainevent_time = date("g:i a",$mainevent["start"]) . " - " . date("g:i a",$mainevent["end"]);
-$secevent_time = date("g:i a",$secevent["start"]) . " - " . date("g:i a",$secevent["end"]);
-$group_time = date("g:i a",$gi["start"]) . " - " . date("g:i a",$gi["end"]);
-
 //horizontal image
 $horizim = __DIR__ . "/images/blanks/rpiw-blank-horizontal.jpg";
 $vertimg = __DIR__ . "/images/blanks/rpiw-blank-vertical.jpg";

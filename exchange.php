@@ -3,14 +3,7 @@
  * This file is intended to check an exchange calendar via ews
  * 
  */
-function __autoload($class_name)
-{
-    // Start from the base path and determine the location from the class name,
-    $base_path = 'php-ews';
-    $include_file = $base_path . '/' . str_replace('_', '/', $class_name) . '.php';
- 
-    return (file_exists($include_file) ? require_once $include_file : false);
-}
+
 
 $today = date('Y-m-d');
 
@@ -57,6 +50,7 @@ if ($response->ResponseMessages->FindItemResponseMessage->RootFolder->TotalItems
               
     //room resource delegation fix
     $subject = str_replace("FW: ", "", $subject);
+    $subject = str_replace("\n", "", $subject);
     $subject = trim($subject);
    
     //assuming still connected to database

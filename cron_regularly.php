@@ -2,6 +2,7 @@
 require('settings.php');
 $con=mysqli_connect($sql_server,$sql_username,$sql_password,"rpiwayfinding") or die("Connect failed: %s\n". mysqli_connect_error());
 
+
 foreach($rooms as $r) {
 
 	//blank between hours - adjust in settings.php
@@ -36,11 +37,11 @@ foreach($rooms as $r) {
 			$result_set[] = array('id' => $row[0], 'name' => $row[1], 'start' => $row[2], 'end' => $row[3], 'room' => $row[4]);
 			
 			}
+		if (isset($result_set[0])){
 			
-			if (is_array($result_set[0])) { 
 			$one_event = TRUE;
 			$mainevent = $result_set[0];
-			}
+			
 			
 			if (is_array($result_set[1])) { 
 			$two_events = TRUE;
@@ -104,101 +105,133 @@ foreach($rooms as $r) {
 			include('image_create.php');
 			
 			} else {
-			
+				
 			//create default image
-			$input = __DIR__ . "/images/blanks/default.jpg";
+			$input = __DIR__ . "/images/default-horizontal.jpg";
 			$output = __DIR__ . "/images/" . $mainevent['room'] . ".jpg";
 			file_put_contents($output, file_get_contents($input));
 			
+
 			}
 		 
 			/* free result set */
 			mysqli_free_result($result);
-		}
 		
-		//check DB for rooms
-		foreach($r['group'] as $group) {
+	} else {
 		
-			$sql_check = "SELECT * FROM events WHERE Grp='". $group . "'"; 
-
-			if ($result = mysqli_query($con, $sql_check)) {
-				$result_set = array();
-				
-				while ($row = mysqli_fetch_row($result)) {
-				//capture events into string
-				$result_set[] = array('id' => $row[0], 'name' => $row[1], 'start' => $row[2], 'end' => $row[3], 'room' => $row[4]);
-				
-				}
-				
-				
-				//todo: special events for group signs
-				
-				
-				//items should be already dropped from above code
-				
-				//append items to list form
-				foreach($result_set as $gi) {
-					
-					$y = 200;
-					$im = imagecreatetruecolor($gix, $giy);
-					$black = imagecolorallocate($im, 0, 0, 0);
-					$white = imagecolorallocate($im, 255, 255, 255);
-
-					 /* Attempt to open */
-						$im = @imagecreatefromjpeg($vertimg);
-
-						/* See if it failed */
-						if(!$im)
-						{
-							/* Create a black image */
-							$im  = imagecreatetruecolor($gix, $giy);
-							$bgc = imagecolorallocate($im, 255, 255, 255);
-							$tc  = imagecolorallocate($im, 0, 0, 0);
-
-							imagefilledrectangle($im, 0, 0, $gix, $giy, $bgc);
-
-							/* Output an error message */
-							imagestring($im, 1, 5, 5, 'Error loading ' . $vertimg, $tc);
-						} else {
-
-						$event_sub = substr($gi['name'], 0, 84);
-											
-						//room first
-						$x = 20;
-						$y = $y + 44; // from above. Marker is at bottom mof text.
-
-						// Write it
-						imagettftext($im, 24, 0, $x, $y, $black, $font, $gi['room']);
-
-						//Event subject
-						$x = $x + 70;				
-						imagettftext($im, 24, 0, $x, $y, $black, $font, $event_sub);		
-						
-						//time
-						$x = $x + 500;
-						imagettftext($im, 24, 0, $x, $y, $black, $font, $group_time);
-						
-						$file = __DIR__ . "/images/{$group}.jpg";
-
-						// Save the image 
-						imagejpeg($im, $file);
-
-					}
-
-					// Free up memory
-					imagedestroy($im);
-					
-					
-				}
-				
+			//create default image
+			$input = __DIR__ . "/images/default-horizontal.jpg";
+			$output = __DIR__ . "/images/" . $r['name'] . ".jpg";
+			file_put_contents($output, file_get_contents($input));
 			
-				/* free result set */
-				mysqli_free_result($result);
-				
-			}
-		}
+		
+	}
+		
+	}
 		
 		
 	}
+	$groups[] = $r['group'];
+	
+	
+}
+
+$groups = array_unique($groups);
+
+//check DB for rooms
+foreach($groups as $group) {
+		
+	//todo: special events for group signs
+		
+		
+	//blank between hours - adjust in settings.php
+	if (date("G:i") <= $end_time && date("G:i") >= $start_time) {
+
+		// Create a blank image
+		$im = imagecreatetruecolor($gix, $giy);
+		$file = __DIR__ . "/images/" . $group . ".jpg";
+
+		// Save the image 
+		imagejpeg($im, $file);
+
+		// Free up memory
+		imagedestroy($im);
+
+	} else {
+		
+		
+		$sql_check = "SELECT E.*, COUNT(*) AS ct
+						   FROM events E
+						   JOIN (SELECT *
+									  FROM events 
+									  GROUP by Room) E2 ON E2.PID = E.PID
+						   GROUP BY E.Room
+						   ORDER BY E.Room ASC "; 
+						 
+
+		if ($result = mysqli_query($con, $sql_check)) {
+			
+			$result_set = array();
+		
+		while ($row = mysqli_fetch_row($result)) {
+		//capture events into string
+		$result_set[] = array('id' => $row[0], 'name' => $row[1], 'start' => $row[2], 'end' => $row[3], 'room' => $row[4]);
+
+		}
+		
+		$y = 220;
+		if (isset($result_set[0])) {
+		$im = @imagecreatefromjpeg($vertimg);
+	
+	$black = imagecolorallocate($im, 0, 0, 0);
+	$white = imagecolorallocate($im, 255, 255, 255);
+	/* See if it failed */
+	if($im) {
+		
+		
+			foreach($result_set as $gi) {
+
+		$group_time = date("g:i a",strtotime($gi["start"])) . " - " . date("g:i a",strtotime($gi["end"]));
+		$event_sub = substr($gi['name'], 0, 84);
+	
+					//room first
+					$x = 20;
+					$y = $y + 60; // from above. Marker is at bottom mof text.
+
+					// Write it
+					imagettftext($im, 20, 0, $x, $y, $black, $groupfont, preg_replace('/-/', ' ',$gi['room']));
+
+					//Event subject
+					$x = $x + 140;				
+					imagettftext($im, 20, 0, $x, $y, $black, $groupfont, $event_sub);		
+					
+					//time
+					$x = $x + 650;
+					imagettftext($im, 20, 0, $x, $y, $black, $groupfont, $group_time);
+				}
+					$file = __DIR__ . "/images/{$group}.jpg";
+
+				// Save the image 
+				imagejpeg($im, $file);
+		
+// Free up memory
+			imagedestroy($im);
+}
+
+/* free result set */
+			mysqli_free_result($result);
+			
+		} else {
+			//default
+			$input = __DIR__ . "/images/default-vertical.jpg";
+			$output = __DIR__ . "/images/{$group}.jpg";
+			file_put_contents($output, file_get_contents($input));
+			
+		}
+			
+		}
+	}
+
+
 }
 mysqli_close($con);

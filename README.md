@@ -5,6 +5,8 @@ PHP application for wayfinding using a Raspberry Pi and an HDMI monitor. Current
 
 Alternate usage: Big monitor with daily task list for everyone to see.
 
+RPi Wayfinding is now in ALPHA. Please test :)
+
 Requirements
 -------------------------
 
@@ -20,13 +22,6 @@ Requirements
 TODO:
 -------------------------
 
-- Settings
-- ~~Grab from exchange~~
-- ~~Grab from google calendar~~
-- ~~Create image~~
 - Examples
-- ~~Puppet module~~
 - Create how to use without puppet master
-- Complete cron_regularly - 80%
 - Create install
-- ~~Create force-sync~~
