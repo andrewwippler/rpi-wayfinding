@@ -236,6 +236,7 @@ foreach($groups as $group) {
 
 }
 
+$bldgs = array_unique($bldgs);
 //check DB for bldgs
 foreach($bldgs as $b) {
 		

@@ -1,12 +1,7 @@
 <?php
 
 /* 
- * This file is intended to retrieve Calendar items from Google Calendar
- * Planning Center Online currently uses these.
- * 
- * Until PCO creates an API, the best way to grab these is by adding to a Google account and using JSON to grab them.
- *
- * Google has a limitation where the calendar feed updates once every 24 hours. :/
+ * This file is intended to retrieve Calendar items from Google Calendar.
  */
 
 //Few needed strings
@@ -41,9 +36,9 @@ foreach ($obj->feed->entry as $o) {
    $starttime = date("Y-m-d H:i:s", strtotime($starttime));
     
       //assuming still connected to database
-    $query = "INSERT INTO events (EventName, Start, End, Room, Grp) VALUES (?,?,?,?,?)";
+    $query = "INSERT INTO events (EventName, Start, End, Room, Grp, Bldg) VALUES (?,?,?,?,?,?)";
     $stmt = mysqli_prepare($con, $query);
-    mysqli_stmt_bind_param($stmt, "sssss", $title, $starttime, $endtime, $r['name'], $r['group']);
+    mysqli_stmt_bind_param($stmt, "sssss", $title, $starttime, $endtime, $r['name'], $r['group'], $r['bldg']);
     /* Execute the statement */
     mysqli_stmt_execute($stmt);
 

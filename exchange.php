@@ -54,9 +54,9 @@ if ($response->ResponseMessages->FindItemResponseMessage->RootFolder->TotalItems
     $subject = trim($subject);
    
     //assuming still connected to database
-    $query = "INSERT INTO events (EventName, Start, End, Room, Grp) VALUES (?,?,?,?,?)";
+    $query = "INSERT INTO events (EventName, Start, End, Room, Grp, Bldg) VALUES (?,?,?,?,?,?)";
     $stmt = mysqli_prepare($con, $query);
-    mysqli_stmt_bind_param($stmt, "sssss", $subject, $start, $end, $r['name'], $r['group']);
+    mysqli_stmt_bind_param($stmt, "sssss", $subject, $start, $end, $r['name'], $r['group'], $r['bldg']);
     /* Execute the statement */
     mysqli_stmt_execute($stmt);
 
