@@ -75,15 +75,17 @@ sudo apt-get install feh
 ##### Create shell script
 
 ```
+touch /home/pi/rpi-wayfinding.sh
+chmod +x /home/pi/rpi-wayfinding.sh
 nano /home/pi/rpi-wayfinding.sh
 ```
 
-Contents (where *RPINAME* is the same as inside rooms.php):
+Contents (where *BOLD* is the same as inside rooms.php):
 
 ```
 #!/bin/sh
 
-feh -k --hide-pointer -F -R 1200 http://webserver/image.php?i=*RPINAME* &
+feh -k --hide-pointer -F -R 1200 http://webserver/image.php?i=*RPI* &
 ```
 
 For a group (floor level) sign:
