@@ -17,7 +17,7 @@ $webserver = "asa"
         owner   => root,
         group   => root,
         mode    => 644,
-        source  => "puppet:///modules/rpi-wayfinding/rpi-wayfinding.desktop",
+        source  => "puppet:///modules/rpiwayfinding/rpi-wayfinding.desktop",
         require => Package["feh"],
     }
 
@@ -25,7 +25,7 @@ $webserver = "asa"
         owner   => root,
         group   => root,
         mode    => 644,
-        content  => template("rpi-wayfinding/rpi-wayfinding.erb"),
+        content  => template("rpiwayfinding/rpi-wayfinding.erb"),
         require => Package["feh"],
     }
 
@@ -51,7 +51,7 @@ $area = "1st_floor" # must match $r['group']
         owner   => root,
         group   => root,
         mode    => 644,
-        source  => "puppet:///modules/rpi-wayfinding/rpi-wayfinding.desktop",
+        source  => "puppet:///modules/rpiwayfinding/rpi-wayfinding.desktop",
         require => Package["feh"],
     }
 
@@ -59,7 +59,7 @@ $area = "1st_floor" # must match $r['group']
         owner   => root,
         group   => root,
         mode    => 644,
-        content  => template("rpi-wayfinding/rpi-wayfinding-group.erb"),
+        content  => template("rpiwayfinding/rpi-wayfinding-group.erb"),
         require => Package["feh"],
     }
 
@@ -85,7 +85,7 @@ $bldg = "administration" # must match $r['bldg']
         owner   => root,
         group   => root,
         mode    => 644,
-        source  => "puppet:///modules/rpi-wayfinding/rpi-wayfinding.desktop",
+        source  => "puppet:///modules/rpiwayfinding/rpi-wayfinding.desktop",
         require => Package["feh"],
     }
 
@@ -93,7 +93,7 @@ $bldg = "administration" # must match $r['bldg']
         owner   => root,
         group   => root,
         mode    => 644,
-        content  => template("rpi-wayfinding/rpi-wayfinding-bldg.erb"),
+        content  => template("rpiwayfinding/rpi-wayfinding-bldg.erb"),
         require => Package["feh"],
     }
 
