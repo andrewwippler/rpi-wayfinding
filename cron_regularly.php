@@ -10,7 +10,7 @@ foreach($rooms as $r) {
 
 	// Create a blank image
 	$im = imagecreatetruecolor($ix, $iy);
-	$file = __DIR__ . "/images/" . $r['name'] . ".jpg";
+	$file = __DIR__ . "/images/" . strtolower($r['name']) . ".jpg";
 
 	// Save the image 
 	imagejpeg($im, $file);
@@ -96,8 +96,8 @@ foreach($rooms as $r) {
 			if ($found == TRUE && !is_null($mainevent)) {
 			
 			//create image
-			$input = __DIR__ . "/images/special-names/" . $mainevent['name'] . ".jpg";
-			$output = __DIR__ . "/images/" . $mainevent['room'] . ".jpg";
+			$input = __DIR__ . "/images/special-names/" . strtolower($mainevent['name']) . ".jpg";
+			$output = __DIR__ . "/images/" . strtolower($mainevent['room']) . ".jpg";
 			file_put_contents($output, file_get_contents($input));
 			
 			} else if (!is_null($mainevent)) {
@@ -108,7 +108,7 @@ foreach($rooms as $r) {
 				
 			//create default image
 			$input = __DIR__ . "/images/default-horizontal.jpg";
-			$output = __DIR__ . "/images/" . $mainevent['room'] . ".jpg";
+			$output = __DIR__ . "/images/" . strtolower($mainevent['room']) . ".jpg";
 			file_put_contents($output, file_get_contents($input));
 			
 
@@ -121,7 +121,7 @@ foreach($rooms as $r) {
 		
 			//create default image
 			$input = __DIR__ . "/images/default-horizontal.jpg";
-			$output = __DIR__ . "/images/" . $r['name'] . ".jpg";
+			$output = __DIR__ . "/images/" . strtolower($r['name']) . ".jpg";
 			file_put_contents($output, file_get_contents($input));
 			
 		
@@ -150,7 +150,7 @@ foreach($groups as $group) {
 
 		// Create a blank image
 		$im = imagecreatetruecolor($gix, $giy);
-		$file = __DIR__ . "/images/" . $group . ".jpg";
+		$file = __DIR__ . "/images/" . strtolower($group) . ".jpg";
 
 		// Save the image 
 		imagejpeg($im, $file);
@@ -164,10 +164,11 @@ foreach($groups as $group) {
 		$sql_check = "SELECT E.*, COUNT(*) AS ct
 						   FROM events E
 						   JOIN (SELECT *
-									  FROM events 
+									  FROM events
+									  WHERE Grp='". $group ."' 
 									  GROUP by Room) E2 ON E2.PID = E.PID
 						   GROUP BY E.Room
-						   ORDER BY E.Room ASC "; //needs where clause
+						   ORDER BY E.Room ASC "; 
 						 
 
 		if ($result = mysqli_query($con, $sql_check)) {
@@ -210,7 +211,7 @@ foreach($groups as $group) {
 					$x = $x + 650;
 					imagettftext($im, 20, 0, $x, $y, $black, $groupfont, $group_time);
 				}
-					$file = __DIR__ . "/images/{$group}.jpg";
+					$file = __DIR__ . "/images/" . strtolower($group). ".jpg";
 
 				// Save the image 
 				imagejpeg($im, $file);
@@ -225,7 +226,7 @@ foreach($groups as $group) {
 		} else {
 			//default
 			$input = __DIR__ . "/images/default-vertical.jpg";
-			$output = __DIR__ . "/images/{$group}.jpg";
+			$output = __DIR__ . "/images/". strtolower($group) .".jpg";
 			file_put_contents($output, file_get_contents($input));
 			
 		}
@@ -248,7 +249,7 @@ foreach($bldgs as $b) {
 
 		// Create a blank image
 		$im = imagecreatetruecolor($bix, $biy);
-		$file = __DIR__ . "/images/" . $b . ".jpg";
+		$file = __DIR__ . "/images/" . strtolower($b) . ".jpg";
 
 		// Save the image 
 		imagejpeg($im, $file);
@@ -308,7 +309,7 @@ foreach($bldgs as $b) {
 					$x = $x + 650;
 					imagettftext($im, 20, 0, $x, $y, $black, $bldgfont, $bldg_time);
 				}
-					$file = __DIR__ . "/images/{$b}.jpg";
+					$file = __DIR__ . "/images/".strtolower($b).".jpg";
 
 				// Save the image 
 				imagejpeg($im, $file);
@@ -323,7 +324,7 @@ foreach($bldgs as $b) {
 		} else {
 			//default
 			$input = __DIR__ . "/images/default-vertical.jpg";
-			$output = __DIR__ . "/images/{$b}.jpg";
+			$output = __DIR__ . "/images/".strtolower($b).".jpg";
 			file_put_contents($output, file_get_contents($input));
 			
 		}

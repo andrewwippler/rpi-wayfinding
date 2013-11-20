@@ -112,7 +112,7 @@ $white = imagecolorallocate($im, 255, 255, 255);
 
 	}
 
-	$file = __DIR__ . "/images/{$mainevent['room']}.jpg";
+	$file = __DIR__ . "/images/".strtolower($mainevent['room']).".jpg";
 
 	// Save the image 
 	imagejpeg($im, $file);

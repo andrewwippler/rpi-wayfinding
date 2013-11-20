@@ -9,9 +9,9 @@ header('Content-Type: image/jpeg');
 require('rooms.php');
 
 if (isset($_GET["g"])) { 
-	$image = __DIR__ . "/images/" . $_GET["g"] . ".jpg"; 
+	$image = __DIR__ . "/images/" . strtolower($_GET["g"]) . ".jpg"; 
 } else if (isset($_GET["b"])) { 
-	$image = __DIR__ . "/images/" . $_GET["b"] . ".jpg"; 
+	$image = __DIR__ . "/images/" . strtolower($_GET["b"]) . ".jpg"; 
 } else {
 	$i = NULL;
 	//grab url information
@@ -19,13 +19,13 @@ if (isset($_GET["g"])) {
 	foreach ($rooms as $r) {
 		foreach ($r['rpi'] as $h) {
 
-			if ($_GET["i"] == $h) {
+			if (strtolower($_GET["i"]) == strtolower($h)) {
 				$i = TRUE;
 				break;
 			}
 		}
 		//end the foreach when hostname/rpi is found
-		if (!is_null($i)) { $image = __DIR__ . "/images/" . $r['name'] . ".jpg"; break; }
+		if (!is_null($i)) { $image = __DIR__ . "/images/" . strtolower($r['name']) . ".jpg"; break; }
 	}
 
 }
