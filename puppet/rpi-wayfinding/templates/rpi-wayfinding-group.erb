@@ -1,3 +1,3 @@
 #!/bin/sh
 
-feh -k --hide-pointer -F -R 1200 http://<%= scope.lookupvar("rpiwayfinding::group::webserver") %>/image.php?i=<%= hostname %>\&g=<%= scope.lookupvar("rpiwayfinding::group::area") %> &
+feh -k --hide-pointer -F -R 1200 http://<%= scope.lookupvar("rpiwayfinding::group::webserver") %>/image.php?g=<%= scope.lookupvar("rpiwayfinding::group::area") %> &

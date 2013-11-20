@@ -19,7 +19,8 @@ EventName TEXT,
 Start DATETIME,
 End DATETIME,
 Room TEXT,
-Grp TEXT
+Grp TEXT,
+Bldg TEXT
 )";
 
 // Execute query

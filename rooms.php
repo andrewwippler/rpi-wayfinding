@@ -24,4 +24,5 @@ $rooms[] = array(
 		'url' => '', //planning center/google calendar
 		'group' => '', //first floor, building-first-floor, etc.
 		'rpi' => array ('test-sign-1','test-sign-2',), //place your hostnames here. 
+		'bldg' => '', //do not leave emtpy
 		);

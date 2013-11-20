@@ -10,6 +10,8 @@ require('rooms.php');
 
 if (isset($_GET["g"])) { 
 	$image = __DIR__ . "/images/" . $_GET["g"] . ".jpg"; 
+} else if (isset($_GET["b"])) { 
+	$image = __DIR__ . "/images/" . $_GET["b"] . ".jpg"; 
 } else {
 	$i = NULL;
 	//grab url information
