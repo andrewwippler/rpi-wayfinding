@@ -6,8 +6,16 @@
  */
 
 require("settings.php");
+
 if ($_GET["p"] == $passcode) {
-	
+	function __autoload($class_name)
+{
+    // Start from the base path and determine the location from the class name,
+    $base_path = 'php-ews';
+    $include_file = $base_path . '/' . str_replace('_', '/', $class_name) . '.php';
+ 
+    return (file_exists($include_file) ? require_once $include_file : false);
+}
 	$force = TRUE;
 
 	$con=mysqli_connect($sql_server,$sql_username,$sql_password,"rpiwayfinding") or die("Connect failed: %s\n". mysqli_connect_error());

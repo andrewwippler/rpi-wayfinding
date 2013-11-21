@@ -118,6 +118,7 @@ Contents:
 Type=Application
 Exec=/home/pi/rpi-wayfinding.sh
 ```
+Note: Extra spaces at the end of thi file will cause feh to not load on start.
 
 ##### Rotating the RPi for group/building screens
 
