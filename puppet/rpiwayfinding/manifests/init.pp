@@ -1,4 +1,7 @@
-class rpiwayfinding::sign ($webserver = 'wayfinding') {
+$webserver = 'wayfinding'
+
+
+class rpiwayfinding::sign {
 
     package { "feh":
         ensure => latest
@@ -39,8 +42,9 @@ class rpiwayfinding::sign ($webserver = 'wayfinding') {
 
 
 }
+$area = '1st_floor'
 
-class rpiwayfinding::group ($webserver = 'wayfinding', $area = '1st_floor') {
+class rpiwayfinding::group {
 
     package { "feh":
         ensure => latest
@@ -81,7 +85,8 @@ class rpiwayfinding::group ($webserver = 'wayfinding', $area = '1st_floor') {
 
 }
 
-class rpiwayfinding::bldg ($webserver = 'wayfinding', $bldg = 'administration') {
+$bldg = 'administration'
+class rpiwayfinding::bldg {
 
     package { "feh":
         ensure => latest
