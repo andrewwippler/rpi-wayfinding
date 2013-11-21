@@ -1,6 +1,6 @@
 class rpiwayfinding::sign {
 
-$webserver = "asa"
+$webserver = "wayfinding"
 
     package { "feh":
         ensure => latest
@@ -9,13 +9,13 @@ $webserver = "asa"
     file { "/home/pi/rpi-wayfinding.sh":
         owner   => root,
         group   => root,
-        mode    => 754,
+        mode    => 755,
         content  => template("rpiwayfinding/rpi-wayfinding.erb"),
         require => Package["feh"],
     }
 
 	# run exec only if command in onlyif returns 0.
-    exec { "mkdir_autostart":
+    exec { "mkdir_autostart_rpi":
         command => "/bin/mkdir -p /home/pi/.config/autostart",
         onlyif => "/usr/bin/test ! -d /home/pi/.config/autostart"
     }
@@ -25,6 +25,22 @@ $webserver = "asa"
         group   => root,
         mode    => 644,
         source  => "puppet:///modules/rpiwayfinding/rpi-wayfinding.desktop",
+        require => Package["feh"],
+    }
+    
+    file { "/home/pi/.config/autostart/noscreensaver.desktop":
+        owner   => root,
+        group   => root,
+        mode    => 644,
+        source  => "puppet:///modules/rpiwayfinding/noscreensaver.desktop",
+        require => Package["feh"],
+    }
+    
+        file { "/home/pi/noscreensaver.sh":
+        owner   => root,
+        group   => root,
+        mode    => 755,
+        source  => "puppet:///modules/rpiwayfinding/noscreensaver.sh",
         require => Package["feh"],
     }
 
@@ -34,7 +50,7 @@ $webserver = "asa"
 
 class rpiwayfinding::group {
 
-$webserver = "asa"
+$webserver = "wayfining"
 $area = "1st_floor" # must match $r['group']
 
     package { "feh":
@@ -44,13 +60,13 @@ $area = "1st_floor" # must match $r['group']
     file { "/home/pi/rpi-wayfinding.sh":
         owner   => root,
         group   => root,
-        mode    => 754,
+        mode    => 755,
         content  => template("rpiwayfinding/rpi-wayfinding-group.erb"),
         require => Package["feh"],
     }
 
 	# run exec only if command in onlyif returns 0.
-    exec { "mkdir_autostart":
+    exec { "mkdir_autostart_rpi":
         command => "/bin/mkdir -p /home/pi/.config/autostart",
         onlyif => "/usr/bin/test ! -d /home/pi/.config/autostart"
     }
@@ -63,13 +79,28 @@ $area = "1st_floor" # must match $r['group']
         require => Package["feh"],
     }
 
+    file { "/home/pi/.config/autostart/noscreensaver.desktop":
+        owner   => root,
+        group   => root,
+        mode    => 644,
+        source  => "puppet:///modules/rpiwayfinding/noscreensaver.desktop",
+        require => Package["feh"],
+    }
+    
+        file { "/home/pi/noscreensaver.sh":
+        owner   => root,
+        group   => root,
+        mode    => 755,
+        source  => "puppet:///modules/rpiwayfinding/noscreensaver.sh",
+        require => Package["feh"],
+    }
 
 
 }
 
 class rpiwayfinding::bldg {
 
-$webserver = "asa"
+$webserver = "wayfinding"
 $bldg = "administration" # must match $r['bldg']
 
     package { "feh":
@@ -79,13 +110,13 @@ $bldg = "administration" # must match $r['bldg']
     file { "/home/pi/rpi-wayfinding.sh":
         owner   => root,
         group   => root,
-        mode    => 754,
+        mode    => 755,
         content  => template("rpiwayfinding/rpi-wayfinding-bldg.erb"),
         require => Package["feh"],
     }
 
 	# run exec only if command in onlyif returns 0.
-    exec { "mkdir_autostart":
+    exec { "mkdir_autostart_rpi":
         command => "/bin/mkdir -p /home/pi/.config/autostart",
         onlyif => "/usr/bin/test ! -d /home/pi/.config/autostart"
     }
@@ -98,7 +129,21 @@ $bldg = "administration" # must match $r['bldg']
         require => Package["feh"],
     }
 
-
+    file { "/home/pi/.config/autostart/noscreensaver.desktop":
+        owner   => root,
+        group   => root,
+        mode    => 644,
+        source  => "puppet:///modules/rpiwayfinding/noscreensaver.desktop",
+        require => Package["feh"],
+    }
+    
+        file { "/home/pi/noscreensaver.sh":
+        owner   => root,
+        group   => root,
+        mode    => 755,
+        source  => "puppet:///modules/rpiwayfinding/noscreensaver.sh",
+        require => Package["feh"],
+    }
 
 }
 
