@@ -101,7 +101,7 @@ For a building (lobby) sign:
 ```
 #!/bin/sh
 
-feh -k --hide-pointer -F -R 1200 http://webserver/image.php?b=*BLDGNAME* &
+feh --hide-pointer -F -R 1200 http://webserver/image.php?b=*BLDGNAME* &
 ```
 
 ##### Create autorun on start
