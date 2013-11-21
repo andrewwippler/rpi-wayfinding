@@ -29,7 +29,7 @@ RPi Wayfinding is now in BETA. Please test :)
 #### Webserver
 
 ```
-sudo apt-get install apache2-common php5-mysql php5-gd php5-curl
+sudo apt-get install apache2-common php5-mysql php5-gd php5-curl php5-json
 ```
 
 ```
