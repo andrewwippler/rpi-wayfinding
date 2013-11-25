@@ -86,7 +86,7 @@ Contents (where *BOLD* is the same as inside rooms.php):
 #!/bin/bash
 
 sleep 75
-feh -k --hide-pointer -F -R 1200 http://webserver/image.php?i=*RPI* &
+feh --hide-pointer -F -R 1200 http://webserver/image.php?i=*RPI* &
 ```
 
 For a group (floor level) sign:
@@ -95,7 +95,7 @@ For a group (floor level) sign:
 #!/bin/bash
 
 sleep 75
-feh -k --hide-pointer -F -R 1200 http://webserver/image.php?g=*GROUPNAME* &
+feh --hide-pointer -F -R 1200 http://webserver/image.php?g=*GROUPNAME* &
 ```
 
 For a building (lobby) sign:
