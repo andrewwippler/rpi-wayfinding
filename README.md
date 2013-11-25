@@ -1,8 +1,8 @@
-# rpi-wayfinding
+# RPi-Wayfinding
 
-PHP application for wayfinding using a Raspberry Pi and an HDMI monitor. Currently supports pulling information from an exchange calendar and google calendar (via json).
+RPi-Wayfinding is a PHP application for dynamic digital wayfinding using a Raspberry Pi and an HDMI monitor. Currently supports pulling information from an exchange calendar (via EWS) and google calendar (via json).
 
-Alternate usage: Big monitor with daily task list for everyone to see.
+Alternate usage: Big monitor with daily calendar event list for everyone to see.
 
 RPi Wayfinding is now in BETA. Please test :)
 
@@ -83,24 +83,27 @@ nano /home/pi/rpi-wayfinding.sh
 Contents (where *BOLD* is the same as inside rooms.php):
 
 ```
-#!/bin/sh
+#!/bin/bash
 
+sleep 75
 feh -k --hide-pointer -F -R 1200 http://webserver/image.php?i=*RPI* &
 ```
 
 For a group (floor level) sign:
 
 ```
-#!/bin/sh
+#!/bin/bash
 
+sleep 75
 feh -k --hide-pointer -F -R 1200 http://webserver/image.php?g=*GROUPNAME* &
 ```
 
 For a building (lobby) sign:
 
 ```
-#!/bin/sh
+#!/bin/bash
 
+sleep 75
 feh --hide-pointer -F -R 1200 http://webserver/image.php?b=*BLDGNAME* &
 ```
 
@@ -147,7 +150,7 @@ $rooms[] = array(
 		);
 		
 $rooms[] = array(
-		'name' => 'US Holidays', //Use - instead of spaces. This is case-sensitive and will display as-is on group and building signs.
+		'name' => 'US-Holidays', //Use - instead of spaces. This is case-sensitive and will display as-is on group and building signs.
 		'type' => 3, //1 = exchange room resource, 2 = planning center RSS, 3 = google calendar
 		'logon_name' => '', //for exchange room
 		'pass' => '', //for exchange room
