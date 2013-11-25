@@ -82,11 +82,12 @@ foreach($rooms as $r) {
 				//check for special names
 				include('special_names.php');
 				$found = FALSE;
-				echo $mainevent['name'] ."<br />";
 				foreach ($special as $s) {
+				$s = strtolower($s);
 				$checker = stristr(trim($mainevent['name']),$s); // trimming to remove extra spaces at the end (if any)
 				
-						if ($checker == $s) {
+						if (strtolower($checker) == $s) {
+							echo "yes";
 							$found = TRUE;
 							break;
 						}
