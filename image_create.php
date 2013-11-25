@@ -34,24 +34,24 @@ $white = imagecolorallocate($im, 255, 255, 255);
 		$newtext = explode("\n", $eventtext);
 		
 		// First we create our bounding box for the first text
-		$bbox = imagettfbbox(60, 0, $font, $eventtext[0]);
+		$bbox = imagettfbbox(60, 0, $font, $newtext[0]);
 
 		// This is our cordinates for X and Y
 		$x = $bbox[0] + (imagesx($im) / 2) - ($bbox[4] / 2);
 		$y = 514 - 14; // middle of screen, bump up  14px
 
 		// Write it
-		imagettftext($im, 60, 0, $x, $y, $black, $font, $eventtext[0]);
+		imagettftext($im, 60, 0, $x, $y, $black, $font, $newtext[0]);
 		
 		// First we create our bounding box for the second text
-		$bbox = imagettfbbox(60, 0, $font, $eventtext[1]);
+		$bbox = imagettfbbox(60, 0, $font, $newtext[1]);
 
 		// This is our cordinates for X and Y
 		$x = $bbox[0] + (imagesx($im) / 2) - ($bbox[4] / 2);
 		$y = $y + 96; // add font size + 24px
 
 		// Write it
-		imagettftext($im, 60, 0, $x, $y, $black, $font, $eventtext[1]);
+		imagettftext($im, 60, 0, $x, $y, $black, $font, $newtext[1]);
 		
 		// Create the next bounding box for the second text
 		$bbox = imagettfbbox(48, 0, $font, $mainevent_time);
