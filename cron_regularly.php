@@ -196,7 +196,7 @@ foreach($groups as $group) {
 			foreach($result_set as $gi) {
 
 		$group_time = date("g:i a",strtotime($gi["start"])) . " - " . date("g:i a",strtotime($gi["end"]));
-		$event_sub = substr($gi['name'], 0, 84);
+		$event_sub = substr($gi['name'], 0, 58);
 	
 					//room first
 					$x = 20;
@@ -294,7 +294,7 @@ foreach($bldgs as $b) {
 			foreach($result_set as $bi) {
 
 		$bldg_time = date("g:i a",strtotime($bi["start"])) . " - " . date("g:i a",strtotime($bi["end"]));
-		$event_sub = substr($bi['name'], 0, 84);
+		$event_sub = substr($bi['name'], 0, 58);
 	
 					//room first
 					$x = 20;
