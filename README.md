@@ -1,4 +1,4 @@
-# RPi-Wayfinding
+# RPi-Wayfinding 0.2b
 
 RPi-Wayfinding is a PHP application for dynamic digital wayfinding using a Raspberry Pi and an HDMI monitor. Currently supports pulling information from an exchange calendar (via EWS) and google calendar (via json).
 
@@ -29,7 +29,7 @@ RPi Wayfinding is now in BETA. Please test :)
 #### Webserver
 
 ```
-sudo apt-get install apache2-common php5-mysql php5-gd php5-curl php5-json
+sudo apt-get install apache2-bin php5-mysql php5-gd php5-curl php5-json
 ```
 
 ```
@@ -121,7 +121,6 @@ Contents:
 Type=Application
 Exec=/home/pi/rpi-wayfinding.sh
 ```
-Note: Extra spaces at the end of thi file will cause feh to not load on start.
 
 ##### Rotating the RPi for group/building screens
 
@@ -129,7 +128,7 @@ Note: Extra spaces at the end of thi file will cause feh to not load on start.
 3 = 270* clockwise (90* counter-clockwise)
 
 ```
-# echo display_rotate=1 >> /boot/config.txt
+sudo echo display_rotate=1 >> /boot/config.txt
 ```
 
 ## Examples
