@@ -87,7 +87,7 @@ foreach($rooms as $r) {
 				$checker = stristr(trim($mainevent['name']),$s); // trimming to remove extra spaces at the end (if any)
 				
 						if (strtolower($checker) == $s) {
-							echo "yes";
+							
 							$found = TRUE;
 							break;
 						}
@@ -95,7 +95,7 @@ foreach($rooms as $r) {
 					}
 				}
 			 
-			if ($found == TRUE && !is_null($mainevent)) {
+			if ($found == TRUE && !is_null($mainevent) && file_exists(__DIR__ . "/images/special-names/" . strtolower($mainevent['name']) . ".jpg")) {
 			
 			//create image
 			$input = __DIR__ . "/images/special-names/" . strtolower($mainevent['name']) . ".jpg";
