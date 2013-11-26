@@ -207,7 +207,7 @@ $horizim = __DIR__ . "/images/blanks/rpiw-blank-horizontal.jpg";
 $vertimg = __DIR__ . "/images/blanks/rpiw-blank-vertical.jpg";
 ```
 
-## Getting the google calender URL
+## Getting the google calendar URL
 
 1. Make the calendar public
 2. View the calendar settings
