@@ -1,4 +1,4 @@
-# RPi-Wayfinding 0.2b
+# RPi-Wayfinding 0.4b
 
 RPi-Wayfinding is a PHP application for dynamic digital wayfinding using a Raspberry Pi and an HDMI monitor. Currently supports pulling information from an exchange calendar (via EWS) and google calendar (via json).
 
@@ -18,10 +18,10 @@ RPi Wayfinding is now in BETA. Please test :)
  * Puppet master (optional)
  * cURL with NTLM support (7.23.0+ recommended)
  * Exchange 2010 or 2013 - for Exchange Calendars
+ * Public Google Calendar - for Google Calendar support
  
 ## TODO:
 
-- Special names for groups and buildings
 - Create easy install
 
 ## Install:

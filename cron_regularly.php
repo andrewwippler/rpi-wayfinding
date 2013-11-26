@@ -139,13 +139,64 @@ foreach($rooms as $r) {
 	
 }
 
+// special times
+$special_times = FALSE;
+$st = NULL;
+include('special_times.php');
+
+foreach ($specialt as $t) {
+	
+	if ($t['recurrence'] == '1') { //daily
+		
+		if ($t['start'] <= date('Gi') && date('Gi') <= $t['end']) {
+			$special_times = TRUE;
+			
+		}
+		
+	} else if ($t['recurrence'] == '2') { //weekly
+		
+		if ($t['start'] <= date('DGi') && date('DGi') <= $t['end']) {
+			$special_times = TRUE;
+			
+		}
+		
+	} else if ($t['recurrence'] == '3') { //monthly
+		
+		if ($t['start'] <= date('jMGi') && date('jMGi') <= $t['end']) {
+			$special_times = TRUE;
+			
+		}
+		
+	} else if ($t['recurrence'] == '4') { //yearly
+		
+		if ($t['start'] <= date('jMYGi') && date('jMYGi') <= $t['end']) {
+			$special_times = TRUE;
+			
+		}
+		
+	} else {
+		// not supported
+	}
+	
+	if ($special_times == TRUE) { $st = strtolower($t['name']); break; }
+	
+}
+
+
+
+
 $groups = array_unique($groups);
 
 //check DB for groups
 foreach($groups as $group) {
 		
-	//todo: special events for group signs
-		
+	if ($special_times == TRUE && file_exists(__DIR__ . "/images/special-times/" . strtolower($st) . ".jpg")) {
+			
+			$input = __DIR__ . "/images/special-times/". strtolower($st) .".jpg";
+			$output = __DIR__ . "/images/". strtolower($group) .".jpg";
+			file_put_contents($output, file_get_contents($input));
+			
+	} else {
 		
 	//blank between hours - adjust in settings.php
 	if (date("G:i") <= $end_time && date("G:i") >= $start_time) {
@@ -235,7 +286,7 @@ foreach($groups as $group) {
 			
 		}
 	}
-
+}
 
 }
 
@@ -243,7 +294,13 @@ $bldgs = array_unique($bldgs);
 //check DB for bldgs
 foreach($bldgs as $b) {
 		
-	//todo: special events for group signs
+	if ($special_times == TRUE && file_exists(__DIR__ . "/images/special-times/" . strtolower($st) . ".jpg")) {
+			
+			$input = __DIR__ . "/images/special-times/". strtolower($st) .".jpg";
+			$output = __DIR__ . "/images/". strtolower($b) .".jpg";
+			file_put_contents($output, file_get_contents($input));
+			
+	} else {
 		
 		
 	//blank between hours - adjust in settings.php
@@ -333,7 +390,7 @@ foreach($bldgs as $b) {
 			
 		}
 	}
-
+ }
 
 }
 
