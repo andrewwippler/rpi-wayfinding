@@ -25,5 +25,6 @@ $specialt[] = array(
 				'start' => '',//See above
 				'end' => '',			
 				'recurrence' => '',// 1 = daily, 2 = weekly on a single day, 3 = monthly, 4 = yearly
-				
+				'bldg' => '', //building to match | dont want this campus-wide
+				'group' => '',
 				);

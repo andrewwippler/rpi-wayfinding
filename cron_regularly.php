@@ -2,7 +2,6 @@
 require('settings.php');
 $con=mysqli_connect($sql_server,$sql_username,$sql_password,"rpiwayfinding") or die("Connect failed: %s\n". mysqli_connect_error());
 
-
 foreach($rooms as $r) {
 
 	//blank between hours - adjust in settings.php
@@ -142,9 +141,12 @@ foreach($rooms as $r) {
 // special times
 $special_times = FALSE;
 $st = NULL;
+$stb = NULL;
+$stg = NULL;
 include('special_times.php');
 
 foreach ($specialt as $t) {
+
 	
 	if ($t['recurrence'] == '1') { //daily
 		
@@ -178,7 +180,8 @@ foreach ($specialt as $t) {
 		// not supported
 	}
 	
-	if ($special_times == TRUE) { $st = strtolower($t['name']); break; }
+	//FIX ME: currently the $stb and $stg get overwritten.
+	if ($special_times == TRUE) { $st = strtolower($t['name']); $stb = strtolower($t['bldg']); $stg = strtolower($t['group']); break; }
 	
 }
 
@@ -189,11 +192,11 @@ $groups = array_unique($groups);
 
 //check DB for groups
 foreach($groups as $group) {
-		
-	if ($special_times == TRUE && file_exists(__DIR__ . "/images/special-times/" . strtolower($st) . ".jpg")) {
+		$group = strtolower($group);
+	if ($special_times == TRUE && file_exists(__DIR__ . "/images/special-times/" . $st . ".jpg") && $stg == $group) {
 			
-			$input = __DIR__ . "/images/special-times/". strtolower($st) .".jpg";
-			$output = __DIR__ . "/images/". strtolower($group) .".jpg";
+			$input = __DIR__ . "/images/special-times/". $st .".jpg";
+			$output = __DIR__ . "/images/". $group .".jpg";
 			file_put_contents($output, file_get_contents($input));
 			
 	} else {
@@ -203,7 +206,7 @@ foreach($groups as $group) {
 
 		// Create a blank image
 		$im = imagecreatetruecolor($gix, $giy);
-		$file = __DIR__ . "/images/" . strtolower($group) . ".jpg";
+		$file = __DIR__ . "/images/" . $group . ".jpg";
 
 		// Save the image 
 		imagejpeg($im, $file);
@@ -293,11 +296,11 @@ foreach($groups as $group) {
 $bldgs = array_unique($bldgs);
 //check DB for bldgs
 foreach($bldgs as $b) {
-		
-	if ($special_times == TRUE && file_exists(__DIR__ . "/images/special-times/" . strtolower($st) . ".jpg")) {
+	$b = strtolower($b);
+	if ($special_times == TRUE && file_exists(__DIR__ . "/images/special-times/" . $st . ".jpg") && $stb == $b) {
 			
-			$input = __DIR__ . "/images/special-times/". strtolower($st) .".jpg";
-			$output = __DIR__ . "/images/". strtolower($b) .".jpg";
+			$input = __DIR__ . "/images/special-times/". $st .".jpg";
+			$output = __DIR__ . "/images/".$b.".jpg";
 			file_put_contents($output, file_get_contents($input));
 			
 	} else {
@@ -308,7 +311,7 @@ foreach($bldgs as $b) {
 
 		// Create a blank image
 		$im = imagecreatetruecolor($bix, $biy);
-		$file = __DIR__ . "/images/" . strtolower($b) . ".jpg";
+		$file = __DIR__ . "/images/" . $b . ".jpg";
 
 		// Save the image 
 		imagejpeg($im, $file);
@@ -368,7 +371,7 @@ foreach($bldgs as $b) {
 					$x = $x + 650;
 					imagettftext($im, 20, 0, $x, $y, $black, $bldgfont, $bldg_time);
 				}
-					$file = __DIR__ . "/images/".strtolower($b).".jpg";
+					$file = __DIR__ . "/images/".$b.".jpg";
 
 				// Save the image 
 				imagejpeg($im, $file);
@@ -383,7 +386,7 @@ foreach($bldgs as $b) {
 		} else {
 			//default
 			$input = __DIR__ . "/images/default-vertical.jpg";
-			$output = __DIR__ . "/images/".strtolower($b).".jpg";
+			$output = __DIR__ . "/images/".$b.".jpg";
 			file_put_contents($output, file_get_contents($input));
 			
 		}
