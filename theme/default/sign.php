@@ -26,7 +26,8 @@ $white = imagecolorallocate($im, 255, 255, 255);
         imagestring($im, 1, 5, 5, 'Error loading ' . $horizim, $tc);
     } else {
 
-	$eventtext = wordwrap($mainevent['name'], 45, "\n");
+    //to prevent subjects that contain "| theme", use $filtered[0]
+	$eventtext = wordwrap($filtered[0], 45, "\n");
 
 
 	if (strlen($eventtext) > 45) {

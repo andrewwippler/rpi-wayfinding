@@ -7,6 +7,7 @@
 // Set the content type header - in this case image/jpeg
 header('Content-Type: image/jpeg');
 require('rooms.php');
+require('theme_settings.php');
 
 if (isset($_GET["g"])) { 
 	$image = __DIR__ . "/images/" . strtolower($_GET["g"]) . ".jpg"; 
@@ -46,7 +47,7 @@ if (file_exists($image)) {
 } else {
 
 	//return default image
-	$f = __DIR__ . "/images/none.jpg";
+	$f = __DIR__ . "/theme/{$theme}/images/none.jpg";
 	$fp = fopen($f, 'rb');
 
 	// send the right headers

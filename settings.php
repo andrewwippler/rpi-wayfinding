@@ -41,3 +41,6 @@ $bldgfont = __DIR__ . "/font/aleo-bold.ttf";
 //horizontal image
 $horizim = __DIR__ . "/images/blanks/rpiw-blank-horizontal.jpg";
 $vertimg = __DIR__ . "/images/blanks/rpiw-blank-vertical.jpg";
+
+//theme config
+include("theme_settings.php");
