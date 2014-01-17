@@ -2,6 +2,31 @@
 require('settings.php');
 $con=mysqli_connect($sql_server,$sql_username,$sql_password,"rpiwayfinding") or die("Connect failed: %s\n". mysqli_connect_error());
 
+//solid colors for backgrounds during off hours.
+switch (date("w")) {
+    case "0":
+        $color = "(255,0,0)";
+        break;
+    case "1":
+        $color = "(0,255,0)";
+        break;
+    case "2":
+        $color = "(0,0,255)";
+        break;
+    case "3":
+        $color = "(255,255,0)";
+        break;
+    case "4":
+        $color = "(255,0,255)";
+        break;
+    case "5":
+        $color = "(0,255,255)";
+        break;
+    case "6":
+        $color = "(0,0,0)";
+        break;
+}
+
 foreach($rooms as $r) {
 
 	//blank between hours - adjust in settings.php
@@ -9,6 +34,7 @@ foreach($rooms as $r) {
 
 	// Create a blank image
 	$im = imagecreatetruecolor($ix, $iy);
+	imagefilledrectangle($im, 0, 0, $ix, $iy, $color);
 	$file = __DIR__ . "/images/" . strtolower($r['name']) . ".jpg";
 
 	// Save the image 
@@ -219,6 +245,7 @@ foreach($groups as $group) {
 
 		// Create a blank image
 		$im = imagecreatetruecolor($gix, $giy);
+		imagefilledrectangle($im, 0, 0, $gix, $giy, $color);
 		$file = __DIR__ . "/images/" . $group . ".jpg";
 
 		// Save the image 
@@ -263,6 +290,7 @@ foreach($bldgs as $b) {
 
 		// Create a blank image
 		$im = imagecreatetruecolor($bix, $biy);
+		imagefilledrectangle($im, 0, 0, $bix, $biy, $color);
 		$file = __DIR__ . "/images/" . $b . ".jpg";
 
 		// Save the image 
