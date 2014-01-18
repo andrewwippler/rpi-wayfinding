@@ -1,23 +1,5 @@
 <?php
-$sql_check = "SELECT E.*, COUNT(*) AS ct
-						   FROM events E
-						   JOIN (SELECT *
-									  FROM events
-									  WHERE Grp='". $group ."' 
-									  GROUP by Room) E2 ON E2.PID = E.PID
-						   GROUP BY E.Room
-						   ORDER BY E.Room ASC "; 
-						 
 
-		if ($result = mysqli_query($con, $sql_check)) {
-			
-			$result_set = array();
-		
-		while ($row = mysqli_fetch_row($result)) {
-		//capture events into string
-		$result_set[] = array('id' => $row[0], 'name' => $row[1], 'start' => $row[2], 'end' => $row[3], 'room' => $row[4]);
-
-		}
 		
 		$y = 220;
 		if (isset($result_set[0])) {
@@ -51,6 +33,7 @@ $sql_check = "SELECT E.*, COUNT(*) AS ct
 				}
 					$file = __DIR__ . "/images/" . strtolower($group). ".jpg";
 
+
 				// Save the image 
 				imagejpeg($im, $file);
 		
@@ -58,5 +41,5 @@ $sql_check = "SELECT E.*, COUNT(*) AS ct
 			imagedestroy($im);
 }
 
-/* free result set */
-			mysqli_free_result($result);
+}
+?>

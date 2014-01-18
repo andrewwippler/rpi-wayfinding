@@ -24,23 +24,5 @@ $sql_password = "";
 $passcode = "";
 $force = FALSE; // leave false
 
-//demensions
-$ix = 1920;
-$iy = 1080;
-$gix = 1080;
-$giy = 1920;
-$bix = 1080;
-$biy = 1920;
-
-// Path to our font file
-$font = __DIR__ . "/font/aleo-bold.ttf";
-$bottom_font = __DIR__ . "/font/aleo-bold.ttf";
-$groupfont = __DIR__ . "/font/aleo-bold.ttf";
-$bldgfont = __DIR__ . "/font/aleo-bold.ttf";
-
-//horizontal image
-$horizim = __DIR__ . "/images/blanks/rpiw-blank-horizontal.jpg";
-$vertimg = __DIR__ . "/images/blanks/rpiw-blank-vertical.jpg";
-
 //theme config
 include("theme_settings.php");

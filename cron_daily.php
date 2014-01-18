@@ -21,15 +21,15 @@ foreach($rooms as $r) {
 //create daily events
 if ($r['type'] == 1) {
 
-include(__DIR__ . '/connectors/exchange.php');
+include('exchange.php');
 
 } else if ($r['type'] == 2) {
 
-include(__DIR__ . '/connectors/planning-center.php');
+include('planning-center.php');
 
 } else if ($r['type'] == 3) {
 
-include(__DIR__ . '/connectors/google-calendar.php');
+include('google-calendar.php');
 
 } else {
 

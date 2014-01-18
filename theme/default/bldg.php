@@ -1,23 +1,5 @@
 <?php
-$sql_check = "SELECT E.*, COUNT(*) AS ct
-						   FROM events E
-						   JOIN (SELECT *
-									  FROM events 
-									  GROUP by Room) E2 ON E2.PID = E.PID
-						   GROUP BY E.Room
-						   ORDER BY E.Room ASC "; //needs limit clause
-						 
 
-		if ($result = mysqli_query($con, $sql_check)) {
-			
-			$result_set = array();
-		
-		while ($row = mysqli_fetch_row($result)) {
-		//capture events into string
-		$result_set[] = array('id' => $row[0], 'name' => $row[1], 'start' => $row[2], 'end' => $row[3], 'room' => $row[4]);
-
-		}
-		
 		$y = 220;
 		if (isset($result_set[0])) {
 		$im = @imagecreatefromjpeg($vertimg);
@@ -57,6 +39,5 @@ $sql_check = "SELECT E.*, COUNT(*) AS ct
 			imagedestroy($im);
 }
 
-/* free result set */
-			mysqli_free_result($result);
+}
 			
