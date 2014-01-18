@@ -42,7 +42,7 @@ $response = $ews->FindItem($request);
  
 // Loop through each item if event(s) were found in the timeframe specified
 if ($response->ResponseMessages->FindItemResponseMessage->RootFolder->TotalItemsInView > 0){
-    $events = $response->ResponseMessages->FindItemResponseMessage->RootFolder->Items->CalendarItem;
+    $events = $response->ResponseMessages->FindItemResponseMessage->RootFolder->Items;
     foreach ($events as $event){
         $start = date('Y-m-d H:i:s',strtotime($event->Start));
         $end = date('Y-m-d H:i:s',strtotime($event->End));
