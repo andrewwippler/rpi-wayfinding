@@ -151,8 +151,13 @@ foreach($rooms as $r) {
 			
 			$oldtheme = $theme;
 			$filtered = explode("|",$mainevent['name']);
-			$theme = $filtered[1];
 			
+			if(isset($filtered[1])) {
+				$theme = $filtered[1];
+			} else {
+				$theme = $oldtheme;
+			}
+			echo $theme;
 			include(__DIR__ . "/theme/{$theme}/sign.php");
 			
 			//to prevent the new theme from propogating further
@@ -378,6 +383,6 @@ foreach($bldgs as $b) {
 	}
  }
 
-echo $vertimg;
+
 
 mysqli_close($con);
