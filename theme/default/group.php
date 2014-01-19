@@ -31,7 +31,7 @@
 					$x = $x + 650;
 					imagettftext($im, 20, 0, $x, $y, $black, $groupfont, $group_time);
 				}
-					$file = __DIR__ . "/images/" . strtolower($group). ".jpg";
+					$file = $_SERVER["DOCUMENT_ROOT"] . "/images/" . strtolower($group). ".jpg";
 
 
 				// Save the image 

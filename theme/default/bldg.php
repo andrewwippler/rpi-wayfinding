@@ -30,7 +30,7 @@
 					$x = $x + 650;
 					imagettftext($im, 20, 0, $x, $y, $black, $bldgfont, $bldg_time);
 				}
-					$file = __DIR__ . "/images/".$b.".jpg";
+					$file =$_SERVER["DOCUMENT_ROOT"] . "/images/".$b.".jpg";
 
 				// Save the image 
 				imagejpeg($im, $file);

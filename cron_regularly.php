@@ -83,12 +83,12 @@ foreach($rooms as $r) {
 			$mainevent = $result_set[0];
 			
 			
-			if (is_array($result_set[1])) { 
+			if (isset($result_set[1]) && is_array($result_set[1])) { 
 			$two_events = TRUE;
 			$secevent = $result_set[1];
 			}
 			
-			if (is_array($result_set[2])) { 
+			if (isset($result_set[2]) && is_array($result_set[2])) { 
 			$three_events = TRUE;
 			}    
 			
@@ -157,7 +157,7 @@ foreach($rooms as $r) {
 			} else {
 				$theme = $oldtheme;
 			}
-			echo $theme;
+			
 			include(__DIR__ . "/theme/{$theme}/sign.php");
 			
 			//to prevent the new theme from propogating further
