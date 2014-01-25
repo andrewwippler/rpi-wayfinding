@@ -289,28 +289,29 @@ foreach($groups as $group) {
 		if ($result = mysqli_query($con, $sql_check)) {
 			
 			$result_set = array();
-		
-		while ($row = mysqli_fetch_row($result)) {
-		//capture events into string
-		$result_set[] = array('id' => $row[0], 'name' => $row[1], 'start' => $row[2], 'end' => $row[3], 'room' => $row[4]);
+            
+            if (mysqli_num_rows($result) >= 1) {
+                while ($row = mysqli_fetch_row($result)) {
+                //capture events into string
+                $result_set[] = array('id' => $row[0], 'name' => $row[1], 'start' => $row[2], 'end' => $row[3], 'room' => $row[4]);
 
-		}
-		
-	require($group_exec);	
-							
-		/* free result set */
-		mysqli_free_result($result);
+                }
+                
+                include($group_exec);	
+                                    
+                /* free result set */
+                mysqli_free_result($result);
 
 
-				
-		} else {
-			//default
-			$input = __DIR__ . "/theme/{$theme}/images/default-vertical.jpg";
-			$output = __DIR__ . "/images/". strtolower($group) .".jpg";
-			file_put_contents($output, file_get_contents($input));
-			
-		}
-			
+                        
+                } else {
+                    //default
+                    $input = __DIR__ . "/theme/{$theme}/images/default-vertical.jpg";
+                    $output = __DIR__ . "/images/". strtolower($group) .".jpg";
+                    file_put_contents($output, file_get_contents($input));
+                    
+                }
+			}
 		}
 	}
 }
@@ -359,26 +360,28 @@ foreach($bldgs as $b) {
 		if ($result = mysqli_query($con, $sql_check)) {
 			
 			$result_set = array();
-		
-		while ($row = mysqli_fetch_row($result)) {
-		//capture events into string
-		$result_set[] = array('id' => $row[0], 'name' => $row[1], 'start' => $row[2], 'end' => $row[3], 'room' => $row[4]);
+            if (mysqli_num_rows($result) >= 1) {
+                while ($row = mysqli_fetch_row($result)) {
+                //capture events into string
+                $result_set[] = array('id' => $row[0], 'name' => $row[1], 'start' => $row[2], 'end' => $row[3], 'room' => $row[4]);
 
-		}
-					
-		require($bldg_exec);
-				
-		/* free result set */
-			mysqli_free_result($result);
-		
-		} else {
-			//default
-			$input = __DIR__ . "/theme/{$theme}/images/default-vertical.jpg";
-			$output = __DIR__ . "/images/".$b.".jpg";
-			file_put_contents($output, file_get_contents($input));
-			
-		}
-			
+                }
+                
+                include($bldg_exec);	
+                                    
+                /* free result set */
+                mysqli_free_result($result);
+
+
+                        
+                } else {
+                    //default
+                    $input = __DIR__ . "/theme/{$theme}/images/default-vertical.jpg";
+                    $output = __DIR__ . "/images/". strtolower($group) .".jpg";
+                    file_put_contents($output, file_get_contents($input));
+                    
+                }
+			}
 		}
 	}
  }
