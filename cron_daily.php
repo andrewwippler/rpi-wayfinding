@@ -4,6 +4,7 @@
  * This file is intended to pull every room resource and place them in jpg files.
  * The end result is /images/<room_name_location>.jpg
  */
+ $email_time = microtime(true);
  function __autoload($class_name)
 {
     // Start from the base path and determine the location from the class name,
@@ -57,5 +58,27 @@ include('google-calendar.php');
 }
 mysqli_close($con);
 
-//todo: add optional mail to recipient when completed.
-
+if ($finish_email == TRUE) {
+	
+	
+	$email_message = "
+	<html>
+	<body>
+	The execution of RPi-Wayfinding has completed on {$_SERVER["SERVER_NAME"]} ({$_SERVER["SERVER_ADDR"]}). 
+	<br/>
+	<br />
+	The request took ".(microtime(true) - $email_time)." seconds.
+	</body>
+	</html>	
+	";
+	
+	$headers   = array();
+	$headers[] = "MIME-Version: 1.0";
+	$headers[] = "Content-type: text/plain; charset=iso-8859-1";
+	$headers[] = "From: RPi-Wayfinding <{$email_to}>";
+	$headers[] = "Subject: {$email_subject}";
+	$headers[] = "X-Mailer: PHP/".phpversion();
+	
+	mail($email_to, $email_subject, $email_message, implode("\r\n", $headers));
+	
+}

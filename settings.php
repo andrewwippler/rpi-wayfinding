@@ -26,3 +26,8 @@ $force = FALSE; // leave false
 
 //theme config
 include("theme_settings.php");
+
+//email settings
+$finish_email = FALSE;
+$email_to = "root@localhost";
+$email_subject = "RPi-wayfinding has done its daily task.";
