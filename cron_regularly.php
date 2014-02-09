@@ -199,9 +199,8 @@ foreach($rooms as $r) {
 
 // special times
 $special_times = FALSE;
-$st = NULL;
-$stb = NULL;
-$stg = NULL;
+$sta = array(); //array to keep all information
+
 include('special_times.php');
 
 foreach ($specialt as $t) {
@@ -211,6 +210,7 @@ foreach ($specialt as $t) {
 		
 		if ($t['start'] <= date('Gi') && date('Gi') <= $t['end']) {
 			$special_times = TRUE;
+			$sta[] = strtolower($t['name']) . "|" . strtolower($t['bldg']) . "|" . strtolower($t['group']);
 			
 		}
 		
@@ -218,30 +218,28 @@ foreach ($specialt as $t) {
 		
 		if ($t['start'] <= date('DGi') && date('DGi') <= $t['end']) {
 			$special_times = TRUE;
-			
+			$sta[] = strtolower($t['name']) . "|" . strtolower($t['bldg']) . "|" . strtolower($t['group']);
 		}
 		
 	} else if ($t['recurrence'] == '3') { //monthly
 		
 		if ($t['start'] <= date('jMGi') && date('jMGi') <= $t['end']) {
 			$special_times = TRUE;
-			
+			$sta[] = strtolower($t['name']) . "|" . strtolower($t['bldg']) . "|" . strtolower($t['group']);
 		}
 		
 	} else if ($t['recurrence'] == '4') { //yearly
 		
 		if ($t['start'] <= date('jMYGi') && date('jMYGi') <= $t['end']) {
 			$special_times = TRUE;
-			
+			$sta[] = strtolower($t['name']) . "|" . strtolower($t['bldg']) . "|" . strtolower($t['group']);
 		}
 		
 	} else {
 		// not supported
 	}
-	
-	//FIX ME: currently the $stb and $stg get overwritten.
-	if ($special_times == TRUE) { $st = strtolower($t['name']); $stb = strtolower($t['bldg']); $stg = strtolower($t['group']); break; }
-	
+		$sta[] = "bogus|for|error-sake";
+		$st = array_unique($sta);
 }
 
 
@@ -252,12 +250,19 @@ $groups = array_unique($groups);
 //check DB for groups
 foreach($groups as $group) {
 		$group = strtolower($group);
-	if ($special_times == TRUE && file_exists(__DIR__ . "/images/special-times/" . $st . ".jpg") && $stg == $group) {
+	if ($special_times == TRUE) {
+		
+		foreach ($st as $t) {
 			
-			$input = __DIR__ . "/images/special-times/". $st .".jpg";
-			$output = __DIR__ . "/images/". $group .".jpg";
-			file_put_contents($output, file_get_contents($input));
+			$special_time = explode("|", $t);
 			
+			if (file_exists(__DIR__ . "/images/special-times/" . $special_time[0] . " " . $special_time[2] . ".jpg") && $special_time[2] == $group) {
+				
+				$input = __DIR__ . "/images/special-times/" . $special_time[0] . " " . $special_time[2] . ".jpg";
+				$output = __DIR__ . "/images/". $group .".jpg";
+				file_put_contents($output, file_get_contents($input));
+			}
+		}	
 	} else {
 		
 	//blank between hours - adjust in settings.php
@@ -322,12 +327,19 @@ $bldgs = array_unique($bldgs);
 //check DB for bldgs
 foreach($bldgs as $b) {
 	$b = strtolower($b);
-	if ($special_times == TRUE && file_exists(__DIR__ . "/images/special-times/" . $st . ".jpg") && $stb == $b) {
+	if ($special_times == TRUE) {
+		
+		foreach ($st as $t) {
 			
-			$input = __DIR__ . "/images/special-times/". $st .".jpg";
-			$output = __DIR__ . "/images/".$b.".jpg";
-			file_put_contents($output, file_get_contents($input));
+			$special_time = explode("|", $t);
 			
+			if (file_exists(__DIR__ . "/images/special-times/" . $special_time[0] . " " . $special_time[1] . ".jpg") && $special_time[1] == $b) {
+				
+				$input = __DIR__ . "/images/special-times/" . $special_time[0] . " " . $special_time[1] . ".jpg";
+				$output = __DIR__ . "/images/". $b .".jpg";
+				file_put_contents($output, file_get_contents($input));
+			}
+		}	
 	} else {
 		
 		
