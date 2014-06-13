@@ -56,6 +56,10 @@ include('google-calendar.php');
 }
 
 }
+
+//include cleaning function
+include('clean.php');
+
 mysqli_close($con);
 
 if ($finish_email == TRUE) {
