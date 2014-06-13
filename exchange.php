@@ -43,6 +43,7 @@ $response = $ews->FindItem($request);
 // Loop through each item if event(s) were found in the timeframe specified
 if ($response->ResponseMessages->FindItemResponseMessage->RootFolder->TotalItemsInView > 0){
     $events = $response->ResponseMessages->FindItemResponseMessage->RootFolder->Items;
+    $events2 = $response->ResponseMessages->FindItemResponseMessage->RootFolder->Items->CalendarItem;
     foreach ($events as $event){
         $start = date('Y-m-d H:i:s',strtotime($event->Start));
         $end = date('Y-m-d H:i:s',strtotime($event->End));
@@ -62,6 +63,27 @@ if ($response->ResponseMessages->FindItemResponseMessage->RootFolder->TotalItems
 			/* Execute the statement */
 			mysqli_stmt_execute($stmt);
 		}
+    }
+    
+    foreach ($events2 as $event2){
+    	$start = date('Y-m-d H:i:s',strtotime($event2->Start));
+    	$end = date('Y-m-d H:i:s',strtotime($event2->End));
+    	$subject = $event2->Subject;
+    
+    	//room resource delegation fix
+    	$subject = str_replace("FW: ", "", $subject);
+    	$subject = str_replace("\n", "", $subject);
+    	$subject = trim($subject);
+    	 
+    	 
+    	if ($subject != "") {
+    		//assuming still connected to database
+    		$query = "INSERT INTO events (EventName, Start, End, Room, Grp, Bldg) VALUES (?,?,?,?,?,?)";
+    		$stmt = mysqli_prepare($con, $query);
+    		mysqli_stmt_bind_param($stmt, "ssssss", $subject, $start, $end, $r['name'], $r['group'], $r['bldg']);
+    		/* Execute the statement */
+    		mysqli_stmt_execute($stmt);
+    	}
     }
 }
 else {
