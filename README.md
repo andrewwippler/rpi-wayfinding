@@ -1,10 +1,14 @@
-# RPi-Wayfinding 0.6.2b
+# RPi-Wayfinding 0.8.5b
 
 RPi-Wayfinding is a PHP application for dynamic digital wayfinding using a Raspberry Pi and an HDMI monitor. Currently supports pulling information from an exchange calendar (via EWS) and google calendar (via json).
 
 Alternate usage: Big monitor with daily calendar event list for everyone to see.
 
-RPi Wayfinding is now in BETA. Please test :)
+RPi Wayfinding is now somewhat stable. Please test :)
+
+![image](https://dl.dropboxusercontent.com/u/2844569/keep/IMG_20131230_150355.jpg)
+
+One of our existing cases retrofitted to use RPi wayfinding.
 
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=JXNSHZTBDNACS&lc=US&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted)
 
@@ -20,9 +24,13 @@ RPi Wayfinding is now in BETA. Please test :)
  * Exchange 2010 or 2013 - for Exchange Calendars
  * Public Google Calendar - for Google Calendar support
  
-## TODO:
+## Recommended Hardware
 
-- Create easy install
+ * [HDMI Room Screen](http://www.adafruit.com/products/1287)
+ * [SanDisk SD Cards](http://www.amazon.com/gp/product/B007JRB0TC/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B007JRB0TC&linkCode=as2&tag=personal0964-20)
+ * [RaspberryPi](http://www.amazon.com/gp/product/B009SQQF9C/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B009SQQF9C&linkCode=as2&tag=personal0964-20)
+ * [Group/Bldg Screens](http://www.amazon.com/gp/product/B005BZNDOO/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B005BZNDOO&linkCode=as2&tag=personal0964-20) - Needs 3 washers per top screw for it to lay flat (items included in wall mount kit below)
+ * [Monitor Wall Mounts](http://www.amazon.com/gp/product/B000VKCIJU/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B000VKCIJU&linkCode=as2&tag=personal0964-20)
 
 Check the [wiki](https://github.com/andrewwippler/rpi-wayfinding/wiki) for more information.
 
