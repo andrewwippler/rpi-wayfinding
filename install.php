@@ -2,9 +2,10 @@
 
 //todo: create database, move settings into settings.php, and create a few rooms
 
-require('settings.php');
 
-$con=mysqli_connect($sql_server,$sql_username,$sql_password) or die("Connect failed: %s\n", mysqli_connect_error());
+
+/*
+$con=mysqli_connect($sql_server,$sql_username,$sql_password) or die("Connect failed: %s\n". mysqli_connect_error());
 
 // Create database
 $sql="CREATE DATABASE IF NOT EXISTS rpiwayfinding";
@@ -25,8 +26,40 @@ Bldg TEXT
 
 // Execute query
 mysqli_query($con,$sql2) or die("Error creating table: " . mysqli_error($con));
-
+ */
 
 
   
 ?> 
+
+<html>
+<head>
+<title>RPi - Wayfinding installer</title>
+</head>
+
+<body>
+
+<form action="install.php?s=1" method="post">
+<label for="DB_srv">Database Server</label><input type="text" name="DB_srv" value="localhost" /><br />
+<label for="DB">Database Name</label><input type="text" name="DB" /><br />
+<label for="DB_usr">Database User</label><input type="text" name="DB_usr" /><br />
+<label for="DB_pw">Database Password</label><input type="text" name="DB_pw" /><br />
+
+
+<br />
+<label for="mail_srv">Exchange Server (optional)</label><input type="text" name="mail_srv" /><br />
+<br />
+<label for="start_time">Turn of signs at</label><input type="text" name="start_time" /><br />
+<label for="end_time">Turn on signs at</label><input type="text" name="end_time" /><br />
+<br />
+
+<label for="force_sync">Force sync passcode</label><input type="text" name="force_sync" /><br />
+<br />
+
+
+
+
+</form>
+
+</body>
+</html>
