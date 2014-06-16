@@ -2,7 +2,7 @@
 
 		$y = 220;
 		if (isset($result_set[0])) {
-		$im = @imagecreatefrompng($vertimg);
+		$im = @imagecreatefrompng($vertimg,NULL,0);
 	
 	$black = imagecolorallocate($im, 0, 0, 0);
 	$white = imagecolorallocate($im, 255, 255, 255);

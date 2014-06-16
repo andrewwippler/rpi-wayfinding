@@ -5,16 +5,16 @@
 		if (isset($result_set[0])) {
     switch ($group) {
         case "revels-first-floor":        
-		$im = @imagecreatefrompng($vertimg);
+		$im = @imagecreatefrompng($vertimg,NULL,0);
         break;
         case "revels-second-floor":        
-		$im = @imagecreatefrompng($vertimg2);
+		$im = @imagecreatefrompng($vertimg2,NULL,0);
         break;
         case "revels-third-floor":        
-		$im = @imagecreatefrompng($vertimg3);
+		$im = @imagecreatefrompng($vertimg3,NULL,0);
         break;
         default:        
-		$im = @imagecreatefrompng($vertimg);
+		$im = @imagecreatefrompng($vertimg,NULL,0);
         break;
 	} 
 	

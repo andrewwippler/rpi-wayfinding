@@ -10,7 +10,7 @@ $text_colord = imagecolorallocate($im, 241, 138, 138);
 $gray_colord = imagecolorallocate($im, 189, 189, 189);
 
  /* Attempt to open */
-    $im = @imagecreatefrompng($horizim);
+    $im = @imagecreatefrompng($horizim,NULL,0);
 
     /* See if it failed */
     if(!$im)

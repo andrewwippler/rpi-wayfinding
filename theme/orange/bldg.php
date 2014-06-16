@@ -4,7 +4,7 @@
 		$y = 550;
 		if (isset($result_set[0])) {
             
-		$im = @imagecreatefrompng($vertimg);
+		$im = @imagecreatefrompng($vertimg,NULL,0);
 	
 $text_color = imagecolorallocate($im, 228, 34, 34);
 $gray_color = imagecolorallocate($im, 115, 115, 115);

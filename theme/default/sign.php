@@ -10,7 +10,7 @@ $black = imagecolorallocate($im, 0, 0, 0);
 $white = imagecolorallocate($im, 255, 255, 255);
 
  /* Attempt to open */
-    $im = @imagecreatefrompng($horizim);
+    $im = @imagecreatefrompng($horizim,NULL,0);
 
     /* See if it failed */
     if(!$im)
