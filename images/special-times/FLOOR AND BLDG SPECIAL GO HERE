@@ -1,5 +1,5 @@
-Format: lower case name (matching $specialt['name']) + space + building or group.jpg
+Format: lower case name (matching $specialt['name']) + space + building or group.png
 
 e.g.
-special-name admin.jpg
-special-name first-floor.jpg
+special-name admin.png
+special-name first-floor.png

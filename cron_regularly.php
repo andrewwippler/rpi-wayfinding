@@ -50,10 +50,10 @@ foreach($rooms as $r) {
 	$im = imagecreatetruecolor($ix, $iy);
 	$color = imagecolorallocate($im, $color1, $color2, $color3);
 	imagefilledrectangle($im, 0, 0, $ix, $iy, $color);
-	$file = __DIR__ . "/images/" . strtolower($r['name']) . ".jpg";
+	$file = __DIR__ . "/images/" . strtolower($r['name']) . ".png";
 
 	// Save the image 
-	imagejpeg($im, $file);
+	imagepng($im, $file);
 
 	// Free up memory
 	imagedestroy($im);
@@ -140,11 +140,11 @@ foreach($rooms as $r) {
 					}
 				}
 			 
-			if ($found == TRUE && !is_null($mainevent) && file_exists(__DIR__ . "/images/special-names/" . strtolower(trim($filtered[0])) . ".jpg")) {
+			if ($found == TRUE && !is_null($mainevent) && file_exists(__DIR__ . "/images/special-names/" . strtolower(trim($filtered[0])) . ".png")) {
 			
 			//create image
-			$input = __DIR__ . "/images/special-names/" . strtolower(trim($filtered[0])) . ".jpg";
-			$output = __DIR__ . "/images/" . strtolower($mainevent['room']) . ".jpg";
+			$input = __DIR__ . "/images/special-names/" . strtolower(trim($filtered[0])) . ".png";
+			$output = __DIR__ . "/images/" . strtolower($mainevent['room']) . ".png";
 			file_put_contents($output, file_get_contents($input));
 			
 			} else if (!is_null($mainevent)) {
@@ -167,8 +167,8 @@ foreach($rooms as $r) {
 			} else {
 				
 			//create default image
-			$input = __DIR__ . "/theme/{$theme}/images/default-horizontal.jpg";
-			$output = __DIR__ . "/images/" . strtolower($mainevent['room']) . ".jpg";
+			$input = __DIR__ . "/theme/{$theme}/images/default-horizontal.png";
+			$output = __DIR__ . "/images/" . strtolower($mainevent['room']) . ".png";
 			file_put_contents($output, file_get_contents($input));
 			
 
@@ -180,8 +180,8 @@ foreach($rooms as $r) {
 	} else {
 		
 			//create default image
-			$input = __DIR__ . "/theme/{$theme}/images/default-horizontal.jpg";
-			$output = __DIR__ . "/images/" . strtolower($r['name']) . ".jpg";
+			$input = __DIR__ . "/theme/{$theme}/images/default-horizontal.png";
+			$output = __DIR__ . "/images/" . strtolower($r['name']) . ".png";
 			file_put_contents($output, file_get_contents($input));
 			
 		
@@ -256,10 +256,10 @@ foreach($groups as $group) {
 			
 			$special_time = explode("|", $t);
 			
-			if (file_exists(__DIR__ . "/images/special-times/" . $special_time[0] . " " . $special_time[2] . ".jpg") && $special_time[2] == $group) {
+			if (file_exists(__DIR__ . "/images/special-times/" . $special_time[0] . " " . $special_time[2] . ".png") && $special_time[2] == $group) {
 				
-				$input = __DIR__ . "/images/special-times/" . $special_time[0] . " " . $special_time[2] . ".jpg";
-				$output = __DIR__ . "/images/". $group .".jpg";
+				$input = __DIR__ . "/images/special-times/" . $special_time[0] . " " . $special_time[2] . ".png";
+				$output = __DIR__ . "/images/". $group .".png";
 				file_put_contents($output, file_get_contents($input));
 			}
 		}	
@@ -272,10 +272,10 @@ foreach($groups as $group) {
 		$im = imagecreatetruecolor($gix, $giy);
 		$color = imagecolorallocate($im, $color1, $color2, $color3);
 		imagefilledrectangle($im, 0, 0, $gix, $giy, $color);
-		$file = __DIR__ . "/images/" . $group . ".jpg";
+		$file = __DIR__ . "/images/" . $group . ".png";
 
 		// Save the image 
-		imagejpeg($im, $file);
+		imagepng($im, $file);
 
 		// Free up memory
 		imagedestroy($im);
@@ -311,8 +311,8 @@ foreach($groups as $group) {
                         
                 } else {
                     //default
-                    $input = __DIR__ . "/theme/{$theme}/images/default-vertical.jpg";
-                    $output = __DIR__ . "/images/". strtolower($group) .".jpg";
+                    $input = __DIR__ . "/theme/{$theme}/images/default-vertical.png";
+                    $output = __DIR__ . "/images/". strtolower($group) .".png";
                     file_put_contents($output, file_get_contents($input));
                     
                 }
@@ -333,10 +333,10 @@ foreach($bldgs as $b) {
 			
 			$special_time = explode("|", $t);
 			
-			if (file_exists(__DIR__ . "/images/special-times/" . $special_time[0] . " " . $special_time[1] . ".jpg") && $special_time[1] == $b) {
+			if (file_exists(__DIR__ . "/images/special-times/" . $special_time[0] . " " . $special_time[1] . ".png") && $special_time[1] == $b) {
 				
-				$input = __DIR__ . "/images/special-times/" . $special_time[0] . " " . $special_time[1] . ".jpg";
-				$output = __DIR__ . "/images/". $b .".jpg";
+				$input = __DIR__ . "/images/special-times/" . $special_time[0] . " " . $special_time[1] . ".png";
+				$output = __DIR__ . "/images/". $b .".png";
 				file_put_contents($output, file_get_contents($input));
 			}
 		}	
@@ -350,10 +350,10 @@ foreach($bldgs as $b) {
 		$im = imagecreatetruecolor($bix, $biy);
 		$color = imagecolorallocate($im, $color1, $color2, $color3);
 		imagefilledrectangle($im, 0, 0, $bix, $biy, $color);
-		$file = __DIR__ . "/images/" . $b . ".jpg";
+		$file = __DIR__ . "/images/" . $b . ".png";
 
 		// Save the image 
-		imagejpeg($im, $file);
+		imagepng($im, $file);
 
 		// Free up memory
 		imagedestroy($im);
@@ -388,8 +388,8 @@ foreach($bldgs as $b) {
                         
                 } else {
                     //default
-                    $input = __DIR__ . "/theme/{$theme}/images/default-vertical.jpg";
-                    $output = __DIR__ . "/images/". strtolower($group) .".jpg";
+                    $input = __DIR__ . "/theme/{$theme}/images/default-vertical.png";
+                    $output = __DIR__ . "/images/". strtolower($group) .".png";
                     file_put_contents($output, file_get_contents($input));
                     
                 }

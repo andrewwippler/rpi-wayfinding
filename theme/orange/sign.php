@@ -10,7 +10,7 @@ $text_colord = imagecolorallocate($im, 241, 138, 138);
 $gray_colord = imagecolorallocate($im, 189, 189, 189);
 
  /* Attempt to open */
-    $im = @imagecreatefromjpeg($horizim);
+    $im = @imagecreatefrompng($horizim);
 
     /* See if it failed */
     if(!$im)
@@ -130,10 +130,10 @@ $gray_colord = imagecolorallocate($im, 189, 189, 189);
 
     }
 
-	$file = $_SERVER["DOCUMENT_ROOT"] .  "/images/".strtolower($mainevent['room']).".jpg";
+	$file = $_SERVER["DOCUMENT_ROOT"] .  "/images/".strtolower($mainevent['room']).".png";
 
 	// Save the image 
-	imagejpeg($im, $file);
+	imagepng($im, $file);
 
 }
 

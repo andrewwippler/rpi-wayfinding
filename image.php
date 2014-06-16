@@ -4,15 +4,15 @@
  *
  *
  */
-// Set the content type header - in this case image/jpeg
-header('Content-Type: image/jpeg');
+// Set the content type header - in this case image/png
+header('Content-Type: image/png');
 require('rooms.php');
 require('theme_settings.php');
 
 if (isset($_GET["g"])) { 
-	$image = __DIR__ . "/images/" . strtolower($_GET["g"]) . ".jpg"; 
+	$image = __DIR__ . "/images/" . strtolower($_GET["g"]) . ".png"; 
 } else if (isset($_GET["b"])) { 
-	$image = __DIR__ . "/images/" . strtolower($_GET["b"]) . ".jpg"; 
+	$image = __DIR__ . "/images/" . strtolower($_GET["b"]) . ".png"; 
 } else {
 	$i = NULL;
 	//grab url information
@@ -26,7 +26,7 @@ if (isset($_GET["g"])) {
 			}
 		}
 		//end the foreach when hostname/rpi is found
-		if (!is_null($i)) { $image = __DIR__ . "/images/" . strtolower($r['name']) . ".jpg"; break; }
+		if (!is_null($i)) { $image = __DIR__ . "/images/" . strtolower($r['name']) . ".png"; break; }
 	}
 
 }
@@ -46,7 +46,7 @@ if (file_exists($image)) {
 
 } else {
 
-	//return default image
+	//return not found image
 	$f = __DIR__ . "/theme/{$theme}/images/none.jpg";
 	$fp = fopen($f, 'rb');
 

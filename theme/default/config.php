@@ -19,8 +19,8 @@ $groupfont = __DIR__ . "/font/aleo-bold.ttf";
 $bldgfont = __DIR__ . "/font/aleo-bold.ttf";
 
 //horizontal image
-$horizim = __DIR__ . "/images/blanks/rpiw-blank-horizontal.jpg";
-$vertimg = __DIR__ . "/images/blanks/rpiw-blank-vertical.jpg";
+$horizim = __DIR__ . "/images/blanks/rpiw-blank-horizontal.png";
+$vertimg = __DIR__ . "/images/blanks/rpiw-blank-vertical.png";
 
 //image execs
 $group_exec = __DIR__ . "/group.php";

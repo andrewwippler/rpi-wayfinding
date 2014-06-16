@@ -2,7 +2,7 @@
 
 /* 
  * This file is intended to pull every room resource and place them in jpg files.
- * The end result is /images/<room_name_location>.jpg
+ * The end result is /images/<room_name_location>.png
  */
 
 require("settings.php");

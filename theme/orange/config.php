@@ -19,10 +19,10 @@ $groupfont = __DIR__ . "/font/aleo-bold.ttf";
 $bldgfont = __DIR__ . "/font/aleo-bold.ttf";
 
 //image
-$horizim = __DIR__ . "/images/blanks/orange-bg.jpg";
-$vertimg = __DIR__ . "/images/1f-orange-bg.jpg";
-$vertimg2 = __DIR__ . "/images/2f-orange-bg.jpg";
-$vertimg3 = __DIR__ . "/images/3f-orange-bg.jpg";
+$horizim = __DIR__ . "/images/blanks/orange-bg.png";
+$vertimg = __DIR__ . "/images/1f-orange-bg.png";
+$vertimg2 = __DIR__ . "/images/2f-orange-bg.png";
+$vertimg3 = __DIR__ . "/images/3f-orange-bg.png";
 
 //image execs
 $group_exec = __DIR__ . "/group.php";

@@ -4,7 +4,7 @@
 		$y = 550;
 		if (isset($result_set[0])) {
             
-		$im = @imagecreatefromjpeg($vertimg);
+		$im = @imagecreatefrompng($vertimg);
 	
 $text_color = imagecolorallocate($im, 228, 34, 34);
 $gray_color = imagecolorallocate($im, 115, 115, 115);
@@ -32,11 +32,11 @@ $gray_color = imagecolorallocate($im, 115, 115, 115);
 					$x = $x + 650;
 					imagettftext($im, 20, 0, $x, $y, $gray_color, $bottom_font, $group_time);
 				}
-					$file = $_SERVER["DOCUMENT_ROOT"] . "/images/" . strtolower($b). ".jpg";
+					$file = $_SERVER["DOCUMENT_ROOT"] . "/images/" . strtolower($b). ".png";
 
 
 				// Save the image 
-				imagejpeg($im, $file);
+				imagepng($im, $file);
 		
 // Free up memory
 			imagedestroy($im);
