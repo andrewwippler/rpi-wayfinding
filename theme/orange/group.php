@@ -5,16 +5,16 @@
 		if (isset($result_set[0])) {
     switch ($group) {
         case "revels-first-floor":        
-		$im = @imagecreatefrompng($vertimg,NULL,0);
+		$im = @imagecreatefrompng($vertimg);
         break;
         case "revels-second-floor":        
-		$im = @imagecreatefrompng($vertimg2,NULL,0);
+		$im = @imagecreatefrompng($vertimg2);
         break;
         case "revels-third-floor":        
-		$im = @imagecreatefrompng($vertimg3,NULL,0);
+		$im = @imagecreatefrompng($vertimg3);
         break;
         default:        
-		$im = @imagecreatefrompng($vertimg,NULL,0);
+		$im = @imagecreatefrompng($vertimg);
         break;
 	} 
 	
@@ -48,7 +48,7 @@ $gray_color = imagecolorallocate($im, 115, 115, 115);
 
 
 				// Save the image 
-				imagepng($im, $file);
+				imagepng($im, $file,0);
 		
 // Free up memory
 			imagedestroy($im);

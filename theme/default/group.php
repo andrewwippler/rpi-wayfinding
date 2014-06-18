@@ -3,7 +3,7 @@
 		
 		$y = 220;
 		if (isset($result_set[0])) {
-		$im = @imagecreatefrompng($vertimg,NULL,0);
+		$im = @imagecreatefrompng($vertimg);
 	
 	$black = imagecolorallocate($im, 0, 0, 0);
 	$white = imagecolorallocate($im, 255, 255, 255);
@@ -35,7 +35,7 @@
 
 
 				// Save the image 
-				imagepng($im, $file);
+				imagepng($im, $file,0);
 		
 // Free up memory
 			imagedestroy($im);
