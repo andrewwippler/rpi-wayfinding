@@ -35,7 +35,7 @@ $gray_colord = imagecolorallocate($im, 189, 189, 189);
     	if ($two_events == TRUE) {
             
             //check lengths
-            if (strlen($eventtext) > 30) {
+            if (strlen($eventtext) > 28) {
                 $newtext = explode("\n", $eventtext);
                 //position correctly
                 $y = 250;
@@ -65,7 +65,7 @@ $gray_colord = imagecolorallocate($im, 189, 189, 189);
                 
             }
             
-            if (strlen($eventtext2) > 38) {
+            if (strlen($eventtext2) > 35) {
                 $newtext2 = explode("\n", $eventtext2);
                 //position correctly
                 $y = 705;
@@ -99,7 +99,7 @@ $gray_colord = imagecolorallocate($im, 189, 189, 189);
 	} else {
         //only one event
 
-        if (strlen($eventtext) > 30) {
+        if (strlen($eventtext) > 28) {
                 $newtext = explode("\n", $eventtext);
                 //posi
                 $y = 500;
