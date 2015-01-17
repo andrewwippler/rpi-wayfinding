@@ -6,38 +6,48 @@
 
  */
 
-include('ganon/ganon.php');
 
-//Few needed strings
-$today = date('Y-m-d');
 
 $uri = urlencode($r['url']);
 
 //this url defaults to today's date - perfect for what we need.
-$url = "https://resources.planningcenteronline.com/widgets/{$uri}.json";
+$url = "https://resources.planningcenteronline.com/widgets/".$uri.".json";
 
 //JSON request
 $json = file_get_contents($url);
 $obj = json_decode($json);
+// a new dom object
+$dom = new domDocument;
+ 
+// load the html into the object
+$dom->loadHTML($obj->html);
+ 
+// discard white space
+$dom->preserveWhiteSpace = false;
 
-//Parse JSON
-//foreach ($obj->feed->entry as $o) {
+foreach ($dom->getElementsByTagName('tr') as $e) {
+	$ex = explode("     ",$e->nodeValue);
+	$array[] = array("time" => preg_replace('!\s+!', ' ', $ex[0]), "subj" => preg_replace('!\s+!', ' ', $ex[2]));
+}
 
- //  $endtime = $o->{'gd$when'}[0]->endTime;
- //   $starttime = $o->{'gd$when'}[0]->startTime;
-//   $title = $o->title->{'$t'}; //produces "name: name" ... need to explode
-//   $title = explode(":",$title);
-//   $title = $title[0];
-//   $title = trim('$title[0]');
-//   $endtime = date("Y-m-d H:i:s", strtotime($endtime));
-//   $starttime = date("Y-m-d H:i:s", strtotime($starttime));
-    
- /*     //assuming still connected to database
+//remove the first 2 values (we don't need them)
+$array = array_slice($array, 2); 
+
+//Parse array
+foreach ($finishedArray as $o) {
+	$time = explode(" - ", $o['time']);
+    $endtime = $time[1];
+    $starttime = $time[0];
+    $title = $o['subj'];
+    $endtime2 = date("Y-m-d H:i:s", strtotime($endtime));
+    $starttime2 = date("Y-m-d H:i:s", strtotime($starttime));
+ 
+      //assuming still connected to database
     $query = "INSERT INTO events (EventName, Start, End, Room, Grp, Bldg) VALUES (?,?,?,?,?,?)";
     $stmt = mysqli_prepare($con, $query);
     mysqli_stmt_bind_param($stmt, "ssssss", $title, $starttime, $endtime, $r['name'], $r['group'], $r['bldg']);
     // Execute the statement 
     mysqli_stmt_execute($stmt);
   
-*/
-//}
+
+}
