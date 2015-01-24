@@ -34,7 +34,7 @@ foreach ($dom->getElementsByTagName('tr') as $e) {
 $array = array_slice($array, 2); 
 
 //Parse array
-foreach ($finishedArray as $o) {
+foreach ($array as $o) {
 	$time = explode(" - ", $o['time']);
     $endtime = $time[1];
     $starttime = $time[0];

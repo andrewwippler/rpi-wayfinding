@@ -5,8 +5,7 @@
  * The end result is /images/<room_name_location>.png
  */
  $email_time = microtime(true);
- function __autoload($class_name)
-{
+ function __autoload($class_name) {
     // Start from the base path and determine the location from the class name,
     $base_path = 'php-ews';
     $include_file = $base_path . '/' . str_replace('_', '/', $class_name) . '.php';

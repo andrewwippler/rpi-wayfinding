@@ -2,9 +2,16 @@
 
 //todo: create database, move settings into settings.php, and create a few rooms
 
+if ($_POST['s'] == 1) {
 
+$sql_server = $_POST["DB_srv"];
+$sql_username = $_POST["DB_usr"];
+$sql_password = $_POST["DB_pw"];
+$mail_srv = $_POST["mail_srv"];
+$start = $_POST["start_time"];
+$end = $_POST["end_time"];
+$force_sync = $_POST["force_sync"];
 
-/*
 $con=mysqli_connect($sql_server,$sql_username,$sql_password) or die("Connect failed: %s\n". mysqli_connect_error());
 
 // Create database
@@ -26,8 +33,8 @@ Bldg TEXT
 
 // Execute query
 mysqli_query($con,$sql2) or die("Error creating table: " . mysqli_error($con));
- */
-
+ 
+}
 
   
 ?> 
@@ -39,9 +46,9 @@ mysqli_query($con,$sql2) or die("Error creating table: " . mysqli_error($con));
 
 <body>
 
-<form action="install.php?s=1" method="post">
+<form action="install.php" method="post">
+	<input type="hidden" name="s" value="1" />
 <label for="DB_srv">Database Server</label><input type="text" name="DB_srv" value="localhost" /><br />
-<label for="DB">Database Name</label><input type="text" name="DB" /><br />
 <label for="DB_usr">Database User</label><input type="text" name="DB_usr" /><br />
 <label for="DB_pw">Database Password</label><input type="text" name="DB_pw" /><br />
 
@@ -55,7 +62,7 @@ mysqli_query($con,$sql2) or die("Error creating table: " . mysqli_error($con));
 
 <label for="force_sync">Force sync passcode</label><input type="text" name="force_sync" /><br />
 <br />
-
+<input type="submit" value="create" />
 
 
 
