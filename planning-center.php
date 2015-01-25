@@ -37,18 +37,18 @@ $array = array_slice($array, 2);
 
 //Parse array
 foreach ($array as $o) {
-    if (strlen($o['time']) > 5) {
+    if (strlen($o['time']) > 5) { //time comes back as " 8:00a" from planning center
 	$time = explode(" - ", $o['time']);
-    $endtime = $time[1];
-    $starttime = $time[0];
+    $endtime = $time[1]."m"; //adding a final M to the string. Otherwise returns invalid date/time.
+    $starttime = $time[0]."m";
     $title = $o['subj'];
-    $endtime2 = date("Y-m-d H:i:s", strtotime($endtime));
-    $starttime2 = date("Y-m-d H:i:s", strtotime($starttime));
+    $endtime = date("Y-m-d H:i:s", strtotime($endtime));
+    $starttime = date("Y-m-d H:i:s", strtotime($starttime));
  
       //assuming still connected to database
     $query = "INSERT INTO events (EventName, Start, End, Room, Grp, Bldg) VALUES (?,?,?,?,?,?)";
     $stmt = mysqli_prepare($con, $query);
-    mysqli_stmt_bind_param($stmt, "ssssss", $title, $starttime2, $endtime2, $r['name'], $r['group'], $r['bldg']);
+    mysqli_stmt_bind_param($stmt, "ssssss", $title, $starttime, $endtime, $r['name'], $r['group'], $r['bldg']);
     // Execute the statement 
     mysqli_stmt_execute($stmt);
     unset($array);
