@@ -362,6 +362,7 @@ foreach($bldgs as $b) {
 		
 		$sql_check = "SELECT E.*, COUNT(*) AS ct
 						   FROM events E
+						WHERE Bldg='" . $b . '"
 						   JOIN (SELECT *
 									  FROM events 
 									  GROUP by Room) E2 ON E2.PID = E.PID
