@@ -15,7 +15,7 @@ $query = "DELETE FROM rpiwayfinding USING rpiwayfinding, rpiwayfinding AS vtable
 $stmt = mysqli_prepare($con, $query);
 mysqli_stmt_execute($stmt);
 
-//SELECT * FROM events WHERE End <= '2015-07-14 10:45:33'
+//SELECT * FROM events WHERE End <= NOW()
 
 $query2 = "DELETED FROM events WHERE End <= '".date("Y-m-d H:i:s")."'";
 $stmt2 = mysqli_prepare($con, $query2);
