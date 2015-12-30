@@ -100,6 +100,13 @@ $finish_email = FALSE;
 $email_to = "root@localhost";
 $email_subject = "RPi-wayfinding has done its daily task.";
 ```
+## TODO
+ * Create theme creation wiki entry
+ * Organize the project (too many files in the root directory)
+
+## Contributions
+Always welcome :)
+
 ## License
 
 See LICENSE file
