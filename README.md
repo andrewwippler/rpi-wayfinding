@@ -1,4 +1,4 @@
-# RPi-Wayfinding 0.9.0
+# RPi-Wayfinding 0.9.1
 
 RPi-Wayfinding is a PHP application for dynamic digital wayfinding using a Raspberry Pi and an HDMI monitor. Currently supports pulling information from an exchange calendar (via EWS), google calendar (via json), and Planning Center Online Resources (Using DOM). It is my implementation of Static graphical digital signage.
 
@@ -24,7 +24,7 @@ One of our existing cases retrofitted to use RPi wayfinding.
  * Exchange 2010 or 2013 - for Exchange Calendars
  * Public Google Calendar - for Google Calendar support
  * Planning Center Online Resources - If you want to use them
- 
+
 ## Recommended Hardware
 
  * [HDMI Room Screen](http://www.adafruit.com/products/1287)
@@ -48,10 +48,10 @@ $rooms[] = array(
 		'pass' => 'simple pass', //for exchange room
 		'url' => '', //planning center/google calendar
 		'group' => 'Administrative-First-Floor', //first floor, building-first-floor, etc.
-		'rpi' => array ('adm101','admin-101','rpi-admin-101-a','rpi-admin-101-b'), //place whatever you want the URI i to grab here. 
+		'rpi' => array ('adm101','admin-101','rpi-admin-101-a','rpi-admin-101-b'), //place whatever you want the URI i to grab here.
 		'bldg' => 'Administrative', //do not leave emtpy
 		);
-		
+
 $rooms[] = array(
 		'name' => 'US-Holidays', //Use - instead of spaces. This is case-sensitive and will display as-is on group and building signs.
 		'type' => 3, //1 = exchange room resource, 2 = planning center RSS, 3 = google calendar
@@ -59,7 +59,7 @@ $rooms[] = array(
 		'pass' => '', //for exchange room
 		'url' => 'en.usa#holiday@group.v.calendar.google.com', //planning center/google calendar
 		'group' => 'holidays', //first floor, building-first-floor, etc.
-		'rpi' => array ('rpi-holiday-screen',), //place whatever you want the URI i to grab here. 
+		'rpi' => array ('rpi-holiday-screen',), //place whatever you want the URI i to grab here.
 		'bldg' => 'Happy-Holidays', //do not leave emtpy
 		);		
 ```
@@ -67,14 +67,14 @@ settings.php
 
 ```
 <?php
-/* 
+/*
  * This file is intended to set up general settings to access rooms and include additional rooms.
  *
  */
 
 require("rooms.php");
 
-//Start time to black screens 
+//Start time to black screens
 $start_time = "23:01";//11:01 pm
 
 //End of black screen time
@@ -100,4 +100,6 @@ $finish_email = FALSE;
 $email_to = "root@localhost";
 $email_subject = "RPi-wayfinding has done its daily task.";
 ```
+## License
 
+See LICENSE file
