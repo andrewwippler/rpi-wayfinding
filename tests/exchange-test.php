@@ -8,7 +8,7 @@ $time = 'T'.date('H:i:sP');
 
 if ($ews = new ExchangeWebServices($mailserver, $r['logon_name'], $r['pass'])) {
 
-echo "Connected to exchange account.\n";
+echo "Connected to exchange account.<br />";
 
 // Set init class
 $request = new EWSType_FindItemType();
@@ -36,7 +36,7 @@ $response = $ews->FindItem($request);
 
 // Loop through each item if event(s) were found in the timeframe specified
 if ($response->ResponseMessages->FindItemResponseMessage->RootFolder->TotalItemsInView > 0){
-	  echo "Found an event. \n";
+	  echo "Found an event. <br />";
     $events = $response->ResponseMessages->FindItemResponseMessage->RootFolder->Items;
     $events2 = $response->ResponseMessages->FindItemResponseMessage->RootFolder->Items->CalendarItem;
     foreach ($events as $event){
@@ -46,12 +46,12 @@ if ($response->ResponseMessages->FindItemResponseMessage->RootFolder->TotalItems
 
     //room resource delegation fix
     $subject = str_replace("FW: ", "", $subject);
-    $subject = str_replace("\n", "", $subject);
+    $subject = str_replace("<br />", "", $subject);
     $subject = trim($subject);
 
 
 		if ($subject != "") {
-			echo "This event was found: {$subject}, start: {$start}, end: {$end}.\n";
+			echo "This event was found: {$subject}, start: {$start}, end: {$end}.<br />";
 		}
     }
     foreach ($events2 as $event2){
@@ -61,19 +61,19 @@ if ($response->ResponseMessages->FindItemResponseMessage->RootFolder->TotalItems
 
     	//room resource delegation fix
     	$subject = str_replace("FW: ", "", $subject);
-    	$subject = str_replace("\n", "", $subject);
+    	$subject = str_replace("<br />", "", $subject);
     	$subject = trim($subject);
 
     	if ($subject != "") {
-				echo "This event was found: {$subject}, start: {$start}, end: {$end}.\n";
+				echo "This event was found: {$subject}, start: {$start}, end: {$end}.<br />";
     	}
     }
 }
 else {
-    echo "No events found.\n";
+    echo "No events found.<br />";
 }
 
 } else {
  // error connecting to account
-echo "There was an issue connecting to the account.\n";
+echo "There was an issue connecting to the account.<br />";
 }

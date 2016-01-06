@@ -12,7 +12,7 @@ $url = "https://resources.planningcenteronline.com/widgets/".$uri.".json";
 
 //JSON request
 if ($json = file_get_contents($url)) {
-	echo "Able to connect to a Planning Center Resources Calendar.\n";
+	echo "Able to connect to a Planning Center Resources Calendar.<br />";
 $obj = json_decode($json);
 // a new dom object
 $dom = new domDocument;
@@ -44,10 +44,10 @@ foreach ($array as $o) {
        $starttime = date("Y-m-d H:i:s", strtotime($starttime));
 
       //assuming still connected to database
-			echo "This event was found: {$title}, start: {$starttime}, end: {$endtime}.\n";
+			echo "This event was found: {$title}, start: {$starttime}, end: {$endtime}.<br />";
     }
 }
 
 } else {
-  echo "Unable to get a planning center resources calendar.\n";
+  echo "Unable to get a planning center resources calendar.<br />";
 }

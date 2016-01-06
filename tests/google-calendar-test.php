@@ -17,7 +17,7 @@ $url = "http://www.google.com/calendar/feeds/{$uri}/public/full?alt=json&orderby
 
 //JSON request
 if ($json = file_get_contents($url)) {
-	echo "Able to connect to a Google Calendar.\n";
+	echo "Able to connect to a Google Calendar.<br />";
 $obj = json_decode($json);
 
 //Parse JSON
@@ -32,10 +32,10 @@ foreach ($obj->feed->entry as $o) {
    $starttime = date("Y-m-d H:i:s", strtotime($starttime));
 
       //assuming still connected to database
-			echo "This event was found: {$title}, start: {$starttime}, end: {$endtime}.\n";
+			echo "This event was found: {$title}, start: {$starttime}, end: {$endtime}.<br />";
 
 }
 
 } else {
-  echo "Unable to get a Google calendar.\n";
+  echo "Unable to get a Google calendar.<br />";
 }
