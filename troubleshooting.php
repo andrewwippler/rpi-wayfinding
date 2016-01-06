@@ -26,16 +26,27 @@ echo "Attempting to gather information from the first room listed...\n";
 $r = $rooms[0];
 
 if ($r['type'] == 1) {
-
-include('exchange.php');
+  require_once('php-ews/ExchangeWebServices.php');
+  require_once('php-ews/EWSType.php');
+  require_once('php-ews/NTLMSoapClient.php');
+  require_once('php-ews/EWSType/FindItemType.php');
+  require_once('php-ews/EWSType/ItemQueryTraversalType.php');
+  require_once('php-ews/EWSType/ItemResponseShapeType.php');
+  require_once('php-ews/EWSType/DefaultShapeNamesType.php');
+  require_once('php-ews/EWSType/CalendarViewType.php');
+  require_once('php-ews/EWSType/NonEmptyArrayOfBaseFolderIdsType.php');
+  require_once('php-ews/EWSType/DistinguishedFolderIdType.php');
+  require_once('php-ews/EWSType/DistinguishedFolderIdNameType.php');
+  require_once('php-ews/NTLMSoapClient/Exchange.php');
+  include(__DIR__ . 'tests/exchange-test.php');
 
 } else if ($r['type'] == 2) {
 
-include('planning-center.php');
+  include(__DIR__ . 'tests/planning-center-test.php');
 
 } else if ($r['type'] == 3) {
 
-include('google-calendar.php');
+  include(__DIR__ . 'tests/google-calendar-test.php');
 
 } else {
 
