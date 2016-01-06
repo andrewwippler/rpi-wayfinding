@@ -3,8 +3,10 @@
 require('settings.php');
 $con=mysqli_connect($sql_server,$sql_username,$sql_password,"rpiwayfinding") or die("Connect failed: %s<br />". mysqli_connect_error());
 
+$r = $rooms[0];
+
 echo "Checking for rooms...<br /><br />";
-if (is_array($rooms[0]['name'])) { echo "Found first room: {$rooms[0]['name']}"; } else { echo "ERROR: No rooms found"; }
+if (is_array($r)) { echo "Found first room: {$r['name']}"; } else { echo "ERROR: No rooms found"; }
 
 echo "<br /><br />";
 
@@ -23,7 +25,7 @@ echo "Found these results: <br />";
 echo "No results found in database.<br /><br />";
 echo "Attempting to gather information from the first room listed...<br />";
 
-$r = $rooms[0];
+
 
 if ($r['type'] == 1) {
   require_once('php-ews/ExchangeWebServices.php');
