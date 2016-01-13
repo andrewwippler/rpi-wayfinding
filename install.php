@@ -90,7 +90,7 @@ if ($form == 1) {
 <br />
 <label for="mail_srv">Exchange Server (optional)</label><input type="text" name="mail_srv" /><br />
 <br />
-<label for="start_time">Turn of signs at</label><input type="text" name="start_time" value="04:59" /><br />
+<label for="start_time">Turn off signs at</label><input type="text" name="start_time" value="04:59" /><br />
 <label for="end_time">Turn on signs at</label><input type="text" name="end_time" value="23:59" /><br />
 <br />
 
