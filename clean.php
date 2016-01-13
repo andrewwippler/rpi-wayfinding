@@ -7,11 +7,11 @@
 
 //SELECT DISTINCT *, COUNT(*) AS fieldCount FROM  rpiwayfinding GROUP BY EventName, Room, Bldg HAVING fieldCount > 1;
 
-$query = "DELETE FROM rpiwayfinding USING rpiwayfinding, rpiwayfinding AS vtable
-		  WHERE (rpiwayfinding.PID > vtable.PID)
-			AND (rpiwayfinding.EventName=vtable.EventName)
-			AND (rpiwayfinding.Room=vtable.Room)
-			AND (rpiwayfinding.Bldg=vtable.Bldg);";
+$query = "DELETE FROM events USING events, events AS vtable
+		  WHERE (events.PID > vtable.PID)
+			AND (events.EventName=vtable.EventName)
+			AND (events.Room=vtable.Room)
+			AND (events.Bldg=vtable.Bldg);";
 $stmt = mysqli_prepare($con, $query) or die(mysqli_error($con));
 mysqli_stmt_execute($stmt);
 
