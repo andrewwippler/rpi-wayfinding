@@ -61,7 +61,7 @@ foreach($rooms as $r) {
 	} else {
 
 		//check DB for rooms
-		$sql_check = "SELECT * FROM events WHERE Room='". $r["name"] . "' LIMIT 3"; // limiting to 3 requests because we do not need any more.
+		$sql_check = "SELECT * FROM events WHERE Room='". $r["name"] . "' ORDER BY Start LIMIT 3"; // limiting to 3 requests because we do not need any more.
 
 		if ($result = mysqli_query($con, $sql_check)) {
 			
@@ -286,9 +286,10 @@ foreach($groups as $group) {
 						   JOIN (SELECT *
 									  FROM events
 									  WHERE Grp='". $group ."' 
-									  GROUP by Room) E2 ON E2.PID = E.PID
+									  GROUP BY Room
+									  ORDER BY Start) E2 ON E2.PID = E.PID
 						   GROUP BY E.Room
-						   ORDER BY E.Room ASC "; 
+						   ORDER BY E.Room, E.Start "; 
 						 
 
 		if ($result = mysqli_query($con, $sql_check)) {
@@ -365,9 +366,10 @@ foreach($bldgs as $b) {
 						WHERE Bldg='" . $b . "'
 						   JOIN (SELECT *
 									  FROM events 
-									  GROUP by Room) E2 ON E2.PID = E.PID
+									  GROUP BY Room
+									  ORDER BY Start) E2 ON E2.PID = E.PID
 						   GROUP BY E.Room
-						   ORDER BY E.Room ASC "; //needs limit clause
+						   ORDER BY E.Room, E.Start "; //needs limit clause
 						 
 
 		if ($result = mysqli_query($con, $sql_check)) {
