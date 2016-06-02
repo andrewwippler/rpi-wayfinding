@@ -1,6 +1,6 @@
 <?php
 require('settings.php');
-$con=mysqli_connect($sql_server,$sql_username,$sql_password,"rpiwayfinding") or die("Connect failed: %s\n". mysqli_connect_error());
+$con = mysqli_connect($sql_server,$sql_username,$sql_password,"rpiwayfinding") or die("Connect failed: %s\n". mysqli_connect_error());
 
 //solid colors for backgrounds during off hours.
 switch (date("w")) {
@@ -40,6 +40,8 @@ switch (date("w")) {
         $color3 = "0";
         break;
 }
+
+// Loop through rooms
 
 foreach($rooms as $r) {
 
@@ -94,28 +96,25 @@ foreach($rooms as $r) {
 
 			//drop row if time has past
 			if ($one_event == TRUE && strtotime($result_set[0]['end']) <= time()) {
+  			$stmt = mysqli_prepare($con, "DELETE FROM events WHERE PID=?");
+  			mysqli_stmt_bind_param($stmt, "i", $result_set[0]['id']);
+  			mysqli_stmt_execute($stmt);
 
-			//mysql drop
-			$stmt = mysqli_prepare($con, "DELETE FROM events WHERE PID=?");
-			mysqli_stmt_bind_param($stmt, "i", $result_set[0]['id']);
-			mysqli_stmt_execute($stmt);
+  			//move main event to second if applicable
+  			if ($two_events == TRUE) {
+  				$mainevent = $result_set[1];
 
-			//move main event to second if applicable
-			if ($two_events == TRUE) {
-				$mainevent = $result_set[1];
-
-				//cleanup for up next item
-					if ($three_events == TRUE) {
-						$secevent = $result_set[2];
-					} else {
-						$secevent = NULL;
-						$two_events = FALSE; //Clearing this for image creation issues.
-					}
-				} else {
-					//kill main event
-					$mainevent = NULL;
-				}
-
+  				//cleanup for up next item
+  					if ($three_events == TRUE) {
+  						$secevent = $result_set[2];
+  					} else {
+  						$secevent = NULL;
+  						$two_events = FALSE; //Clearing this for image creation issues.
+  					}
+  				} else {
+  					//kill main event
+  					$mainevent = NULL;
+  				}
 			}
 
 				if (!is_null($mainevent)) {
@@ -163,14 +162,12 @@ foreach($rooms as $r) {
 			//to prevent the new theme from propogating further
 			$theme = $oldtheme;
 
-
 			} else {
 
 			//create default image
 			$input = __DIR__ . "/theme/{$theme}/images/default-horizontal.png";
 			$output = __DIR__ . "/images/" . strtolower($mainevent['room']) . ".png";
 			file_put_contents($output, file_get_contents($input));
-
 
 			}
 
@@ -184,16 +181,12 @@ foreach($rooms as $r) {
 			$output = __DIR__ . "/images/" . strtolower($r['name']) . ".png";
 			file_put_contents($output, file_get_contents($input));
 
-
 	}
-
-	}
-
+}
 
 	}
 	$groups[] = $r['group'];
 	$bldgs[] = $r['bldg'];
-
 
 }
 
@@ -205,13 +198,11 @@ include('special_times.php');
 
 foreach ($specialt as $t) {
 
-
 	if ($t['recurrence'] == '1') { //daily
 
 		if ($t['start'] <= date('Gi') && date('Gi') <= $t['end']) {
 			$special_times = TRUE;
 			$sta[] = strtolower($t['name']) . "|" . strtolower($t['bldg']) . "|" . strtolower($t['group']);
-
 		}
 
 	} else if ($t['recurrence'] == '2') { //weekly
@@ -242,8 +233,7 @@ foreach ($specialt as $t) {
 		$st = array_unique($sta);
 }
 
-
-
+// Loop through groups/floors
 
 $groups = array_unique($groups);
 
@@ -291,7 +281,6 @@ foreach($groups as $group) {
 						   GROUP BY E.Room
 						   ORDER BY E.Room, E.Start ";
 
-
 		if ($result = mysqli_query($con, $sql_check)) {
 
 			$result_set = array();
@@ -308,21 +297,18 @@ foreach($groups as $group) {
                 /* free result set */
                 mysqli_free_result($result);
 
-
-
                 } else {
                     //default
                     $input = __DIR__ . "/theme/{$theme}/images/default-vertical.png";
                     $output = __DIR__ . "/images/". strtolower($group) .".png";
                     file_put_contents($output, file_get_contents($input));
-
                 }
 			}
 		}
 	}
 }
 
-
+// Loop through buildings
 
 $bldgs = array_unique($bldgs);
 //check DB for bldgs
@@ -342,7 +328,6 @@ foreach($bldgs as $b) {
 			}
 		}
 	} else {
-
 
 	//blank between hours - adjust in settings.php
 	if (date("G:i") <= $end_time && date("G:i") >= $start_time) {
@@ -371,15 +356,13 @@ foreach($bldgs as $b) {
 						   GROUP BY E.Room
 						   ORDER BY E.Room, E.Start "; //needs limit clause
 
-
 		if ($result = mysqli_query($con, $sql_check)) {
 
 			$result_set = array();
             if (mysqli_num_rows($result) >= 1) {
-                while ($row = mysqli_fetch_row($result)) {
-                //capture events into string
-                $result_set[] = array('id' => $row[0], 'name' => $row[1], 'start' => $row[2], 'end' => $row[3], 'room' => $row[4]);
-
+                  while ($row = mysqli_fetch_row($result)) {
+                  //capture events into string
+                  $result_set[] = array('id' => $row[0], 'name' => $row[1], 'start' => $row[2], 'end' => $row[3], 'room' => $row[4]);
                 }
 
                 include($bldg_exec);
@@ -387,20 +370,15 @@ foreach($bldgs as $b) {
                 /* free result set */
                 mysqli_free_result($result);
 
-
-
                 } else {
                     //default
                     $input = __DIR__ . "/theme/{$theme}/images/default-vertical.png";
                     $output = __DIR__ . "/images/". strtolower($b) .".png";
                     file_put_contents($output, file_get_contents($input));
-
                 }
 			}
 		}
 	}
  }
-
-
 
 mysqli_close($con);
