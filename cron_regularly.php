@@ -52,7 +52,7 @@ foreach($rooms as $r) {
 	imagefilledrectangle($im, 0, 0, $ix, $iy, $color);
 	$file = __DIR__ . "/images/" . strtolower($r['name']) . ".png";
 
-	// Save the image 
+	// Save the image
 	imagepng($im, $file);
 
 	// Free up memory
@@ -64,7 +64,7 @@ foreach($rooms as $r) {
 		$sql_check = "SELECT * FROM events WHERE Room='". $r["name"] . "' ORDER BY Start LIMIT 3"; // limiting to 3 requests because we do not need any more.
 
 		if ($result = mysqli_query($con, $sql_check)) {
-			
+
 			$result_set = array();
 			$one_event = FALSE;
 			$two_events = FALSE;
@@ -75,126 +75,126 @@ foreach($rooms as $r) {
 			while ($row = mysqli_fetch_row($result)) {
 			//capture events into string
 			$result_set[] = array('id' => $row[0], 'name' => $row[1], 'start' => $row[2], 'end' => $row[3], 'room' => $row[4]);
-			
+
 			}
 		if (isset($result_set[0])){
-			
+
 			$one_event = TRUE;
 			$mainevent = $result_set[0];
-			
-			
-			if (isset($result_set[1]) && is_array($result_set[1])) { 
+
+
+			if (isset($result_set[1]) && is_array($result_set[1])) {
 			$two_events = TRUE;
 			$secevent = $result_set[1];
 			}
-			
-			if (isset($result_set[2]) && is_array($result_set[2])) { 
+
+			if (isset($result_set[2]) && is_array($result_set[2])) {
 			$three_events = TRUE;
-			}    
-			
+			}
+
 			//drop row if time has past
 			if ($one_event == TRUE && strtotime($result_set[0]['end']) <= time()) {
-			
+
 			//mysql drop
 			$stmt = mysqli_prepare($con, "DELETE FROM events WHERE PID=?");
 			mysqli_stmt_bind_param($stmt, "i", $result_set[0]['id']);
 			mysqli_stmt_execute($stmt);
-			
+
 			//move main event to second if applicable
 			if ($two_events == TRUE) {
 				$mainevent = $result_set[1];
-				
+
 				//cleanup for up next item
 					if ($three_events == TRUE) {
-						$secevent = $result_set[2]; 
+						$secevent = $result_set[2];
 					} else {
 						$secevent = NULL;
 						$two_events = FALSE; //Clearing this for image creation issues.
 					}
 				} else {
 					//kill main event
-					$mainevent = NULL;	
+					$mainevent = NULL;
 				}
-			
+
 			}
-			
+
 				if (!is_null($mainevent)) {
-					
+
 				//drop appended theme
 				$filtered = explode("|",$mainevent['name']);
-				
-					
+
+
 				//check for special names
 				include('special_names.php');
 				$found = FALSE;
 				foreach ($special as $s) {
 				$s = strtolower($s);
 				$checker = stristr(trim($filtered[0]),$s); // trimming to remove extra spaces at the end (if any)
-				
+
 						if (strtolower($checker) == $s) {
-							
+
 							$found = TRUE;
 							break;
 						}
-				
+
 					}
 				}
-			 
+
 			if ($found == TRUE && !is_null($mainevent) && file_exists(__DIR__ . "/images/special-names/" . strtolower(trim($filtered[0])) . ".png")) {
-			
+
 			//create image
 			$input = __DIR__ . "/images/special-names/" . strtolower(trim($filtered[0])) . ".png";
 			$output = __DIR__ . "/images/" . strtolower($mainevent['room']) . ".png";
 			file_put_contents($output, file_get_contents($input));
-			
+
 			} else if (!is_null($mainevent)) {
-			
+
 			$oldtheme = $theme;
 			$filtered = explode("|",$mainevent['name']);
-			
+
 			if(isset($filtered[1])) {
 				$theme = $filtered[1];
 			} else {
 				$theme = $oldtheme;
 			}
-			
+
 			include(__DIR__ . "/theme/{$theme}/sign.php");
-			
+
 			//to prevent the new theme from propogating further
 			$theme = $oldtheme;
-			
-			
+
+
 			} else {
-				
+
 			//create default image
 			$input = __DIR__ . "/theme/{$theme}/images/default-horizontal.png";
 			$output = __DIR__ . "/images/" . strtolower($mainevent['room']) . ".png";
 			file_put_contents($output, file_get_contents($input));
-			
+
 
 			}
-		 
+
 			/* free result set */
 			mysqli_free_result($result);
-		
+
 	} else {
-		
+
 			//create default image
 			$input = __DIR__ . "/theme/{$theme}/images/default-horizontal.png";
 			$output = __DIR__ . "/images/" . strtolower($r['name']) . ".png";
 			file_put_contents($output, file_get_contents($input));
-			
-		
+
+
 	}
-		
+
 	}
-		
-		
+
+
 	}
 	$groups[] = $r['group'];
 	$bldgs[] = $r['bldg'];
-	
-	
+
+
 }
 
 // special times
@@ -205,36 +205,36 @@ include('special_times.php');
 
 foreach ($specialt as $t) {
 
-	
+
 	if ($t['recurrence'] == '1') { //daily
-		
+
 		if ($t['start'] <= date('Gi') && date('Gi') <= $t['end']) {
 			$special_times = TRUE;
 			$sta[] = strtolower($t['name']) . "|" . strtolower($t['bldg']) . "|" . strtolower($t['group']);
-			
+
 		}
-		
+
 	} else if ($t['recurrence'] == '2') { //weekly
-		
+
 		if ($t['start'] <= date('DGi') && date('DGi') <= $t['end']) {
 			$special_times = TRUE;
 			$sta[] = strtolower($t['name']) . "|" . strtolower($t['bldg']) . "|" . strtolower($t['group']);
 		}
-		
+
 	} else if ($t['recurrence'] == '3') { //monthly
-		
+
 		if ($t['start'] <= date('jMGi') && date('jMGi') <= $t['end']) {
 			$special_times = TRUE;
 			$sta[] = strtolower($t['name']) . "|" . strtolower($t['bldg']) . "|" . strtolower($t['group']);
 		}
-		
+
 	} else if ($t['recurrence'] == '4') { //yearly
-		
+
 		if ($t['start'] <= date('jMYGi') && date('jMYGi') <= $t['end']) {
 			$special_times = TRUE;
 			$sta[] = strtolower($t['name']) . "|" . strtolower($t['bldg']) . "|" . strtolower($t['group']);
 		}
-		
+
 	} else {
 		// not supported
 	}
@@ -251,20 +251,20 @@ $groups = array_unique($groups);
 foreach($groups as $group) {
 		$group = strtolower($group);
 	if ($special_times == TRUE) {
-		
+
 		foreach ($st as $t) {
-			
+
 			$special_time = explode("|", $t);
-			
+
 			if (file_exists(__DIR__ . "/images/special-times/" . $special_time[0] . " " . $special_time[2] . ".png") && $special_time[2] == $group) {
-				
+
 				$input = __DIR__ . "/images/special-times/" . $special_time[0] . " " . $special_time[2] . ".png";
 				$output = __DIR__ . "/images/". $group .".png";
 				file_put_contents($output, file_get_contents($input));
 			}
-		}	
+		}
 	} else {
-		
+
 	//blank between hours - adjust in settings.php
 	if (date("G:i") <= $end_time && date("G:i") >= $start_time) {
 
@@ -274,7 +274,7 @@ foreach($groups as $group) {
 		imagefilledrectangle($im, 0, 0, $gix, $giy, $color);
 		$file = __DIR__ . "/images/" . $group . ".png";
 
-		// Save the image 
+		// Save the image
 		imagepng($im, $file);
 
 		// Free up memory
@@ -285,37 +285,37 @@ foreach($groups as $group) {
 						   FROM events E
 						   JOIN (SELECT *
 									  FROM events
-									  WHERE Grp='". $group ."' 
+									  WHERE Grp='". $group ."'
 									  GROUP BY Room
 									  ORDER BY Start) E2 ON E2.PID = E.PID
 						   GROUP BY E.Room
-						   ORDER BY E.Room, E.Start "; 
-						 
+						   ORDER BY E.Room, E.Start ";
+
 
 		if ($result = mysqli_query($con, $sql_check)) {
-			
+
 			$result_set = array();
-            
+
             if (mysqli_num_rows($result) >= 1) {
                 while ($row = mysqli_fetch_row($result)) {
                 //capture events into string
                 $result_set[] = array('id' => $row[0], 'name' => $row[1], 'start' => $row[2], 'end' => $row[3], 'room' => $row[4]);
 
                 }
-                
-                include($group_exec);	
-                                    
+
+                include($group_exec);
+
                 /* free result set */
                 mysqli_free_result($result);
 
 
-                        
+
                 } else {
                     //default
                     $input = __DIR__ . "/theme/{$theme}/images/default-vertical.png";
                     $output = __DIR__ . "/images/". strtolower($group) .".png";
                     file_put_contents($output, file_get_contents($input));
-                    
+
                 }
 			}
 		}
@@ -329,21 +329,21 @@ $bldgs = array_unique($bldgs);
 foreach($bldgs as $b) {
 	$b = strtolower($b);
 	if ($special_times == TRUE) {
-		
+
 		foreach ($st as $t) {
-			
+
 			$special_time = explode("|", $t);
-			
+
 			if (file_exists(__DIR__ . "/images/special-times/" . $special_time[0] . " " . $special_time[1] . ".png") && $special_time[1] == $b) {
-				
+
 				$input = __DIR__ . "/images/special-times/" . $special_time[0] . " " . $special_time[1] . ".png";
 				$output = __DIR__ . "/images/". $b .".png";
 				file_put_contents($output, file_get_contents($input));
 			}
-		}	
+		}
 	} else {
-		
-		
+
+
 	//blank between hours - adjust in settings.php
 	if (date("G:i") <= $end_time && date("G:i") >= $start_time) {
 
@@ -353,27 +353,27 @@ foreach($bldgs as $b) {
 		imagefilledrectangle($im, 0, 0, $bix, $biy, $color);
 		$file = __DIR__ . "/images/" . $b . ".png";
 
-		// Save the image 
+		// Save the image
 		imagepng($im, $file);
 
 		// Free up memory
 		imagedestroy($im);
 
 	} else {
-		
+
 		$sql_check = "SELECT E.*, COUNT(*) AS ct
 						   FROM events E
 						WHERE Bldg='" . $b . "'
 						   JOIN (SELECT *
-									  FROM events 
+									  FROM events
 									  GROUP BY Room
 									  ORDER BY Start) E2 ON E2.PID = E.PID
 						   GROUP BY E.Room
 						   ORDER BY E.Room, E.Start "; //needs limit clause
-						 
+
 
 		if ($result = mysqli_query($con, $sql_check)) {
-			
+
 			$result_set = array();
             if (mysqli_num_rows($result) >= 1) {
                 while ($row = mysqli_fetch_row($result)) {
@@ -381,20 +381,20 @@ foreach($bldgs as $b) {
                 $result_set[] = array('id' => $row[0], 'name' => $row[1], 'start' => $row[2], 'end' => $row[3], 'room' => $row[4]);
 
                 }
-                
-                include($bldg_exec);	
-                                    
+
+                include($bldg_exec);
+
                 /* free result set */
                 mysqli_free_result($result);
 
 
-                        
+
                 } else {
                     //default
                     $input = __DIR__ . "/theme/{$theme}/images/default-vertical.png";
-                    $output = __DIR__ . "/images/". strtolower($group) .".png";
+                    $output = __DIR__ . "/images/". strtolower($b) .".png";
                     file_put_contents($output, file_get_contents($input));
-                    
+
                 }
 			}
 		}
