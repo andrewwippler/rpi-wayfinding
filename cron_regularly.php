@@ -348,11 +348,11 @@ foreach($bldgs as $b) {
 
 		$sql_check = "SELECT E.*, COUNT(*) AS ct
 						   FROM events E
-						WHERE Bldg='" . $b . "'
 						   JOIN (SELECT *
 									  FROM events
 									  GROUP BY Room
 									  ORDER BY Start) E2 ON E2.PID = E.PID
+						   WHERE E.Bldg='" . $b . "'
 						   GROUP BY E.Room
 						   ORDER BY E.Room, E.Start "; //needs limit clause
 
